@@ -1,13 +1,13 @@
+import React from 'react';
+import { BrowserRouter, useRoutes } from 'react-router-dom';
+
 import Login from "./components/auth/login";
 import Register from "./components/auth/register";
-
 import Header from "./components/header";
 import Home from "./components/home";
-
 import { AuthProvider } from "./contexts/authContext";
-import { useRoutes } from "react-router-dom";
 
-function App() {
+function AppRoutes() {
   const routesArray = [
     {
       path: "*",
@@ -26,11 +26,18 @@ function App() {
       element: <Home />,
     },
   ];
-  let routesElement = useRoutes(routesArray);
+  return useRoutes(routesArray);
+}
+
+function App() {
   return (
     <AuthProvider>
-      <Header />
-      <div className="w-full h-screen flex flex-col">{routesElement}</div>
+      <BrowserRouter>
+        <Header />
+        <div className="w-full h-screen flex flex-col">
+          <AppRoutes />
+        </div>
+      </BrowserRouter>
     </AuthProvider>
   );
 }
