@@ -3,7 +3,7 @@ import { BrowserRouter, useRoutes } from 'react-router-dom';
 
 import Login from "./components/auth/login";
 import Register from "./components/auth/register";
-// import Header from "./components/header";
+import Header from "./components/header";
 import Home from "./components/home";
 import { AuthProvider } from "./contexts/authContext";
 
@@ -33,7 +33,7 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        {/* <Header /> */}
+        <Header />
         {/* <div className="w-full h-screen "> */}
         <AppRoutes />
         {/* </div> */}
