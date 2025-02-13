@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getDatabase } from "firebase/database";
 import { getAuth } from "firebase/auth";
 // import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -8,6 +9,7 @@ import { getAuth } from "firebase/auth";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
+  databaseURL: "https://dish-it-out-df6c0-default-rtdb.europe-west1.firebasedatabase.app",
   apiKey: "AIzaSyBJG4VRB6YZB7BR0bHxmTddyd2tWY7jeeg",
   authDomain: "dish-it-out-df6c0.firebaseapp.com",
   projectId: "dish-it-out-df6c0",
@@ -21,5 +23,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 const auth = getAuth(app);
+const database = getDatabase(app);
+
 
 export { app, auth };
