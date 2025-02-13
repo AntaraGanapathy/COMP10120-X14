@@ -4,7 +4,8 @@ import firebase from 'firebase/compat/app';
 
 
 export function saveValue(roomid, name){
-    return set(ref('rooms/${roomid}'), {
+
+    return set(ref(database, `rooms/${roomid}`), {
         username : name,
         exampletext : "test"
     })

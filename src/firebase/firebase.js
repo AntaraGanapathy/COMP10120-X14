@@ -15,7 +15,8 @@ const firebaseConfig = {
   storageBucket: "dish-it-out-df6c0.firebasestorage.app",
   messagingSenderId: "756254290949",
   appId: "1:756254290949:web:2cc566a802f4d3b61d986c",
-  measurementId: "G-V8XL41MTSL"
+  measurementId: "G-V8XL41MTSL",
+  databaseURL: "https://dish-it-out-df6c0-default-rtdb.europe-west1.firebasedatabase.app"
 };
 
 // Initialize Firebase
