@@ -24,16 +24,13 @@ const Register = () => {
     }
 
     return (
-        <>
+        <div className="w-[100vw]" >
             {userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
 
-            <main className="w-full h-screen flex self-center place-content-center place-items-center">
-                <div className="w-96 text-gray-600 space-y-5 p-4 shadow-xl border rounded-xl">
-                    <div className="text-center mb-6">
-                        <div className="mt-2">
-                            <h3 className="text-gray-800 text-xl font-semibold sm:text-2xl">Create a New Account</h3>
-                        </div>
-
+            <div className="flex justify-center items-center">
+                <div className="w-auto p-8 space-y-8 shadow-lg rounded-lg bg-white">
+                    <div className="text-center">
+                        <h3 className="text-gray-800 text-2xl font-semibold">Welcome Back</h3>
                     </div>
                     <form
                         onSubmit={onSubmit}
@@ -91,14 +88,14 @@ const Register = () => {
                         >
                             {isRegistering ? 'Signing Up...' : 'Sign Up'}
                         </button>
-                        <div className="text-sm text-center">
+                        <div className="text-sm text-center text-black">
                             Already have an account? {'   '}
                             <Link to={'/login'} className="text-center text-sm hover:underline font-bold">Continue</Link>
                         </div>
                     </form>
                 </div>
-            </main>
-        </>
+            </div>
+        </div>
     )
 }
 

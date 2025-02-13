@@ -31,15 +31,13 @@ const Login = () => {
     }
 
     return (
-        <div>
+        <div className="w-[100vw]" >
             {userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
 
-            <main className="w-full h-screen flex self-center place-content-center place-items-center">
-                <div className="w-96 text-gray-600 space-y-5 p-4 shadow-xl border rounded-xl">
+            <div className="flex justify-center items-center">
+                <div className="w-auto p-8 space-y-8 shadow-lg rounded-lg bg-white">
                     <div className="text-center">
-                        <div className="mt-2">
-                            <h3 className="text-gray-800 text-xl font-semibold sm:text-2xl">Welcome Back</h3>
-                        </div>
+                        <h3 className="text-gray-800 text-2xl font-semibold">Welcome Back</h3>
                     </div>
                     <form
                         onSubmit={onSubmit}
@@ -84,9 +82,9 @@ const Login = () => {
                             {isSigningIn ? 'Signing In...' : 'Sign In'}
                         </button>
                     </form>
-                    <p className="text-center text-sm">Don't have an account? <Link to={'/register'} className="hover:underline font-bold">Sign up</Link></p>
+                    <p className="text-center text-sm text-black">Don't have an account? <Link to={'/register'} className="hover:underline font-bold">Sign up</Link></p>
                     <div className='flex flex-row text-center w-full'>
-                        <div className='border-b-2 mb-2.5 mr-2 w-full'></div><div className='text-sm font-bold w-fit'>OR</div><div className='border-b-2 mb-2.5 ml-2 w-full'></div>
+                        <div className='border-b-2 mb-2.5 mr-2 w-full'></div><div className='text-sm font-bold w-fit text-black'>OR</div><div className='border-b-2 mb-2.5 ml-2 w-full'></div>
                     </div>
                     <button
                         disabled={isSigningIn}
@@ -108,7 +106,7 @@ const Login = () => {
                         {isSigningIn ? 'Signing In...' : 'Continue with Google'}
                     </button>
                 </div>
-            </main>
+            </div>
         </div>
     )
 }
