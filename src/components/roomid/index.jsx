@@ -3,8 +3,8 @@ import {database, ref, set, push} from '../../firebase/firebase';
 import firebase from 'firebase/compat/app';
 
 
-function saveValue(roomid, name){
-    set(ref('rooms/${roomid}'), {
+export function saveValue(roomid, name){
+    return set(ref('rooms/${roomid}'), {
         username : name,
         exampletext : "test"
     })
@@ -12,3 +12,4 @@ function saveValue(roomid, name){
     .catch((error) => console.error("Error"));
     
 }
+
