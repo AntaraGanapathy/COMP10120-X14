@@ -1,18 +1,17 @@
 import React, {useState} from "react";
-import { saveValue } from ".";
+import { saveValue, generateID } from ".";
 
 const SaveRoomID = () => {
 
-    const [roomID, setRoomID] = useState("");
     const [name, setName] = useState("");
     const [statusMessage, setStatusMessage] = useState("");
 
-    const handleSave = async () => {
+    const createRoom = async () => {
 
-        if (roomID && name) {
+        if (name) {
 
-            try {
-            const response = await saveValue(roomID, name);
+            try {            
+            const response = await generateID(name);
             setStatusMessage(response)
             } 
             catch (error) {
@@ -31,14 +30,7 @@ const SaveRoomID = () => {
 
         <div>
 
-            <h2>Enter RoomID</h2>
-
-            <input
-                type = "text"
-                placeholder = "RoomID"
-                value = {roomID}
-                onChange = {(e) => setRoomID(e.target.value)}
-            />
+            <h2>Create RoomID</h2>
 
             <input
                 type = "text"
@@ -47,7 +39,7 @@ const SaveRoomID = () => {
                 onChange = {(e) => setName(e.target.value)}
             />
 
-            <button onClick = {handleSave}>Save</button>
+            <button onClick = {createRoom}>Generate</button>
 
             {statusMessage && <p>{statusMessage}</p>} {/*Display Message*/}
 
