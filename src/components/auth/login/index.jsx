@@ -32,7 +32,7 @@ const Login = () => {
 
     return (
         <div className="w-[100vw]" >
-            {userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
+            {userLoggedIn && (<Navigate to={'*'} replace={true} />)}
 
             <div className="flex justify-center items-center">
                 <div className="w-auto p-8 space-y-8 shadow-lg rounded-lg bg-white">
