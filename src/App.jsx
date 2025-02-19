@@ -13,11 +13,15 @@ function AppRoutes() {
   const routesArray = [
     {
       path: "*",
-      element: <Dashboard />,
+      element: <Login />,
     },
     {
       path: "/login",
       element: <Login />,
+    },
+    {
+      path: "/dashboard",
+      element: <Dashboard />,
     },
     {
       path: "/register",
