@@ -133,6 +133,24 @@ const Dashboard = () => {
               </div>
             ))}
           </div>
+          {/* Add Kitchen Features section */}
+          <div className="border-t pt-6">
+            <h2 className="text-xl font-semibold mb-4">Kitchen Features</h2>
+            <div className="flex gap-4 mb-6">
+              <button
+                onClick={() => navigate('/calendar')}
+                className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors"
+              >
+                Calendar
+              </button>
+              <button
+                onClick={() => navigate('/cost-splitter')}
+                className="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 transition-colors"
+              >
+                Cost Splitter
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
