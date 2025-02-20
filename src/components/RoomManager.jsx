@@ -128,14 +128,14 @@ const RoomManager = () => {
             placeholder="Kitchen Name"
             value={kitchenName}
             onChange={(e) => setKitchenName(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
+            className="w-full px-4 py-3 border border-gray-300 text-black rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
           />
           <input
             type="text"
             placeholder="Your Name"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
+            className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
           />
           <button
             onClick={handleCreateRoom}
@@ -164,14 +164,14 @@ const RoomManager = () => {
             placeholder="Kitchen ID"
             value={roomId}
             onChange={(e) => setRoomId(e.target.value.replace(/\D/g, ''))}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
+            className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
           />
           <input
             type="text"
             placeholder="Your Name"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
+            className="w-full px-4 py-3 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
           />
           <button
             onClick={handleJoinRoom}
