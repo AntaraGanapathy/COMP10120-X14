@@ -98,21 +98,22 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-w-screen mx-auto p-6 flex flex-col md:flex-row  justify-center items-center">
+    <div className="min-w-screen mx-auto p-6 flex flex-col xl:flex-row  justify-center items-center">
     {/* <div className="flex flex-col md:flex-row justify-center items-center min-h-screen min-w-screen gap-6 p-6"> */}
 
       
-      <div className="bg-white rounded-lg shadow-md p-6 mb-6 min-w-md max-w-3xl mx-4">
+      <div className="bg-white rounded-lg shadow-md p-6 mb-6 mr-4">
         <div className="flex justify-between items-start mb-6">
           <div>
             <h1 className="text-3xl font-bold text-black">{kitchenData?.name || kitchenName}</h1>
             <p className="text-gray-600 mt-2">Kitchen ID: {roomId}</p>
           </div>
           <div className="text-right">
-            <p className="text-sm text-gray-500">
-              Logged in as {currentUser.displayName || currentUser.email}
+            <p className="text-sm text-gray-500 pl-10 align-middle">
+              Logged in as {currentUser.displayName || currentUser.email} 
+              <br></br>
+              Your role: {role}
             </p>
-            <p className="text-sm text-gray-500">Your role: {role}</p>
           </div>
         </div>
 
