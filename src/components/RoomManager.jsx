@@ -139,7 +139,7 @@ const RoomManager = () => {
           />
           <button
             onClick={handleCreateRoom}
-            className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+            className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-black font-medium rounded-lg transition-colors"
           >
             Create Kitchen
           </button>
@@ -175,7 +175,7 @@ const RoomManager = () => {
           />
           <button
             onClick={handleJoinRoom}
-            className="w-full py-3 bg-gray-800 hover:bg-gray-900 text-white font-medium rounded-lg transition-colors"
+            className="w-full py-3 bg-gray-800 hover:bg-gray-900 text-black font-medium rounded-lg transition-colors"
           >
             Join Kitchen
           </button>
