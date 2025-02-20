@@ -3,6 +3,7 @@ import { useAuth } from '../../contexts/authContext';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ref, onValue, remove, get } from 'firebase/database';
 import { database } from '../../firebase/firebase';
+import { doSignOut } from '../../firebase/auth'
 
 const Dashboard = () => {
   const { currentUser } = useAuth();
@@ -95,6 +96,7 @@ const Dashboard = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
+      
       <div className="bg-white rounded-lg shadow-md p-6 mb-6">
         <div className="flex justify-between items-start mb-6">
           <div>
@@ -149,6 +151,7 @@ const Dashboard = () => {
           >
             Leave Kitchen
           </button>
+          <button onClick={() => { doSignOut().then(() => { navigate('/login') }) }} className='text-sm text-white'>Logout</button>
         </div>
       </div>
     </div>
