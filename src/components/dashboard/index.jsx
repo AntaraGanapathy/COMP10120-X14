@@ -110,12 +110,12 @@ const Dashboard = () => {
         </div>
 
         <div className="border-t pt-6">
-          <h2 className="text-xl font-semibold mb-4">Kitchen Members</h2>
+          <h2 className="text-xl text-black font-semibold mb-4">Kitchen Members</h2>
           <div className="space-y-3">
             {members.map(([username, data]) => (
               <div 
                 key={username}
-                className="flex items-center justify-between p-3 bg-gray-50 rounded-md"
+                className="flex items-center text-black justify-between p-3 bg-gray-50 rounded-md"
               >
                 <div>
                   <span className="font-medium">{username}</span>
