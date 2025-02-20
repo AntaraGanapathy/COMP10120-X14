@@ -79,7 +79,7 @@ const Dashboard = () => {
 
   if (!roomId) {
     return (
-      <div className="flex justify-center items-center min-h-screen min-w-screen">
+      <div className="flex flex-row md:flex-col justify-center items-center min-h-screen min-w-screen">
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-6">Welcome to Kitchen Manager</h1>
           <p className="text-xl mb-4">
@@ -98,7 +98,9 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-w-screen mx-auto p-6 flex justify-center items-center">
+    <div className="min-w-screen mx-auto p-6 flex flex-col md:flex-row  justify-center items-center">
+    {/* <div className="flex flex-col md:flex-row justify-center items-center min-h-screen min-w-screen gap-6 p-6"> */}
+
       
       <div className="bg-white rounded-lg shadow-md p-6 mb-6 min-w-md max-w-3xl mx-4">
         <div className="flex justify-between items-start mb-6">
