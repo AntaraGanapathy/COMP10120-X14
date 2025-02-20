@@ -147,26 +147,26 @@ const Dashboard = () => {
         <div className="flex gap-4">
           <button
             onClick={() => navigate('/manage-room')}
-            className="bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors"
+            className="bg-gray-200 px-4 py-2 rounded-md transition-colors"
           >
             Back to Kitchen Manager
           </button>
           <button
             onClick={handleLeaveKitchen}
-            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors"
+            className="bg-gray-200 px-4 py-2 rounded-md transition-colors"
           >
             Leave Kitchen
           </button>
-          <button onClick={() => { doSignOut().then(() => { navigate('/login') }) }} className='text-sm text-white'>Logout</button>
+          <button onClick={() => { doSignOut().then(() => { navigate('/login') }) }} className='bg-gray-200 px-4 py-2 rounded-md transition-colors'>Logout</button>
           <button
                 onClick={() => navigate('/calendar')}
-                className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors"
+                className="bg-gray-200 px-4 py-2 rounded-md transition-colors"
               >
                 Calendar
               </button>
               <button
                 onClick={() => navigate('/cost-splitter')}
-                className="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 transition-colors"
+                className="bg-gray-200 px-4 py-2 rounded-md transition-colors"
               >
                 Cost Splitter
               </button>
