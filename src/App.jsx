@@ -5,6 +5,7 @@ import Login from "./components/auth/login";
 import Register from "./components/auth/register";
 import Dashboard from './components/dashboard';
 import RoomManager from './components/RoomManager';
+import CalendarPage from './components/calendar/calendarpage';
 
 function AppRoutes() {
   const { currentUser } = useAuth();
@@ -13,7 +14,8 @@ function AppRoutes() {
   useEffect(() => {
     if (currentUser) {
       const session = JSON.parse(localStorage.getItem('kitchenSession'));
-      if (session) {
+      if (session && (window.location.pathname == "/login" || window.location.pathname == "/register")) {
+        console.log(session)
         navigate('/dashboard', { state: session });
       }
     }
@@ -25,6 +27,7 @@ function AppRoutes() {
     { path: "/dashboard", element: <Dashboard /> },
     { path: "/register", element: <Register /> },
     { path: "/manage-room", element: <RoomManager /> },
+    { path: "/calendar-page", element:<CalendarPage />}
   ];
   
   return useRoutes(routesArray);
