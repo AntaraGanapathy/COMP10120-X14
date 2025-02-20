@@ -79,18 +79,21 @@ const Dashboard = () => {
 
   if (!roomId) {
     return (
-      <div className="max-w-4xl mx-auto p-6 text-center">
-        <h1 className="text-3xl font-bold mb-6">Welcome to Kitchen Manager</h1>
-        <p className="text-xl mb-4">
-          Hello {currentUser.displayName || currentUser.email}
-        </p>
-        <button
-          onClick={() => navigate('/manage-room')}
-          className="bg-blue-500 text-black px-6 py-2 rounded-md hover:bg-blue-600 transition-colors"
-        >
-          Create or Join a Kitchen
-        </button>
+      <div className="flex justify-center items-center min-h-screen min-w-screen">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold mb-6">Welcome to Kitchen Manager</h1>
+          <p className="text-xl mb-4">
+            Hello {currentUser.displayName || currentUser.email}
+          </p>
+          <button
+            onClick={() => navigate('/manage-room')}
+            className="bg-blue-500 text-black px-6 py-2 rounded-md hover:bg-blue-600 transition-colors"
+          >
+            Create or Join a Kitchen
+          </button>
+        </div>
       </div>
+
     );
   }
 
@@ -100,12 +103,12 @@ const Dashboard = () => {
       <div className="bg-white rounded-lg shadow-md p-6 mb-6">
         <div className="flex justify-between items-start mb-6">
           <div>
-            <h1 className="text-3xl font-bold">{kitchenData?.name || kitchenName}</h1>
+            <h1 className="text-3xl font-bold text-black">{kitchenData?.name || kitchenName}</h1>
             <p className="text-gray-600 mt-2">Kitchen ID: {roomId}</p>
           </div>
           <div className="text-right">
             <p className="text-sm text-gray-500">
-              Logged in as: {currentUser.displayName || currentUser.email}
+              Logged in as {currentUser.displayName || currentUser.email}
             </p>
             <p className="text-sm text-gray-500">Your role: {role}</p>
           </div>
@@ -137,7 +140,7 @@ const Dashboard = () => {
       </div>
 
       <div className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-xl font-semibold mb-4">Kitchen Actions</h2>
+        {/* <h2 className="text-xl font-semibold mb-4">Kitchen Actions</h2> */}
         <div className="flex gap-4">
           <button
             onClick={() => navigate('/manage-room')}
