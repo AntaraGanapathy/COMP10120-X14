@@ -111,13 +111,13 @@ const RoomManager = () => {
   };
 
   return (
-    <div className="min-h-screen min-w-screen from-slate-100 to-blue-50 flex items-center justify-center p-4">
+    <div className="min-w-screen flex items-center justify-center mt-4 mb-4">
       <div className="w-full max-w-md bg-white rounded-xl shadow-xl p-8 space-y-8">
         {/* Header */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold text-gray-800">
+          <p className="text-3xl font-bold text-gray-800">
             Kitchen Manager
-          </h1>
+          </p>
           <p className="text-gray-600">Organize your culinary space</p>
         </div>
 
@@ -139,7 +139,7 @@ const RoomManager = () => {
           />
           <button
             onClick={handleCreateRoom}
-            className="w-full py-3 bg-white text-black font-medium rounded-lg "
+            className="w-full py-3 text-black font-medium rounded-lg "
           >
             Create Kitchen
           </button>
