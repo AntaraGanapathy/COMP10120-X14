@@ -111,7 +111,7 @@ const RoomManager = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 to-blue-50 flex items-center justify-center p-4">
+    <div className="min-h-screen min-w-screen from-slate-100 to-blue-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md bg-white rounded-xl shadow-xl p-8 space-y-8">
         {/* Header */}
         <div className="text-center space-y-2">
@@ -122,7 +122,7 @@ const RoomManager = () => {
         </div>
 
         {/* Create Section */}
-        <div className="space-y-4">
+        <div className="space-y-4 ">
           <input
             type="text"
             placeholder="Kitchen Name"
@@ -139,7 +139,7 @@ const RoomManager = () => {
           />
           <button
             onClick={handleCreateRoom}
-            className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-black font-medium rounded-lg transition-colors"
+            className="w-full py-3 bg-white text-black font-medium rounded-lg "
           >
             Create Kitchen
           </button>
