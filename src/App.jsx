@@ -19,6 +19,9 @@ function AppRoutes() {
         navigate('/dashboard', { state: session });
       }
     }
+    else {
+      
+    }
   }, [currentUser, navigate]);
 
   const routesArray = [
