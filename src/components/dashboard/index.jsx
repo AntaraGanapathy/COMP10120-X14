@@ -136,13 +136,6 @@ const Dashboard = () => {
               </div>
             ))}
           </div>
-          {/* Add Kitchen Features section */}
-          <div className="border-t pt-6">
-            <h2 className="text-xl font-semibold mb-4">Kitchen Features</h2>
-            {/* <div className="flex gap-4 mb-6"> */}
-              
-            {/* </div> */}
-          </div>
         </div>
       </div>
 
