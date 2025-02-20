@@ -98,9 +98,9 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="min-w-screen mx-auto p-6 flex justify-center items-center">
       
-      <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+      <div className="bg-white rounded-lg shadow-md p-6 mb-6 min-w-md max-w-3xl mx-4">
         <div className="flex justify-between items-start mb-6">
           <div>
             <h1 className="text-3xl font-bold text-black">{kitchenData?.name || kitchenName}</h1>
@@ -139,20 +139,9 @@ const Dashboard = () => {
           {/* Add Kitchen Features section */}
           <div className="border-t pt-6">
             <h2 className="text-xl font-semibold mb-4">Kitchen Features</h2>
-            <div className="flex gap-4 mb-6">
-              <button
-                onClick={() => navigate('/calendar')}
-                className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors"
-              >
-                Calendar
-              </button>
-              <button
-                onClick={() => navigate('/cost-splitter')}
-                className="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 transition-colors"
-              >
-                Cost Splitter
-              </button>
-            </div>
+            {/* <div className="flex gap-4 mb-6"> */}
+              
+            {/* </div> */}
           </div>
         </div>
       </div>
@@ -173,6 +162,18 @@ const Dashboard = () => {
             Leave Kitchen
           </button>
           <button onClick={() => { doSignOut().then(() => { navigate('/login') }) }} className='text-sm text-white'>Logout</button>
+          <button
+                onClick={() => navigate('/calendar')}
+                className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors"
+              >
+                Calendar
+              </button>
+              <button
+                onClick={() => navigate('/cost-splitter')}
+                className="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 transition-colors"
+              >
+                Cost Splitter
+              </button>
         </div>
       </div>
     </div>
