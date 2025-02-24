@@ -14,13 +14,11 @@ function AppRoutes() {
   useEffect(() => {
     if (currentUser) {
       const session = JSON.parse(localStorage.getItem('kitchenSession'));
-      if (session && (window.location.pathname == "/login" || window.location.pathname == "/register")) {
-        console.log(session)
-        navigate('/dashboard', { state: session });
+      if (session && (window.location.pathname === "/login" || window.location.pathname === "/register")) {
+        if (window.location.pathname !== "/dashboard") {
+          navigate('/dashboard', { state: session });
+        }
       }
-    }
-    else {
-      
     }
   }, [currentUser, navigate]);
 
