@@ -37,21 +37,12 @@ const MyCalendar = () => {
   
   const handleSelectSlot = useCallback(
     ({start, end}) => {
-      console.log("Select slot")
       const title = window.prompt("Enter title");
       if (title) {
         setEvents((prev) => [...prev, {start, end, title}]);
       }
     },
     [setEvents]
-  );
-
-  const handleSelectEvent = useCallback(
-    (event) => {
-      console.log("Selected event")
-      window.alert(event.title)
-    },
-    []
   );
 
   return (
@@ -62,13 +53,21 @@ const MyCalendar = () => {
         startAccessor="start"
         endAccessor="end"
         onSelectSlot={handleSelectSlot}
-        onSelectEvent={handleSelectEvent}
-        selectable
         style={{ height: 400 }}
       />
     </div>
   );
 };
+
+// const handleSelectSlot = useCallback(
+//   ({start, end}) => {
+//     const title = window.prompt("Enter title");
+//     if (title) {
+//       setEvents((prev) => [...prev, {start, end, title}]);
+//     }
+//   },
+//   [setEvents]
+// );
 
 export default MyCalendar;
 
