@@ -23,6 +23,7 @@ const localizer = momentLocalizer(moment);
 
 const MyCalendar = () => {
 
+  const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState([
     {
       title: "Meeting with John",
@@ -84,6 +85,8 @@ const MyCalendar = () => {
         }
       } catch (error) {
         console.error(error)
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -92,13 +95,22 @@ const MyCalendar = () => {
   }, []);
 
   useEffect(() => {
-    const sessionData = JSON.parse(localStorage.getItem('kitchenSession'));
-    update(ref(database, `rooms/${sessionData.roomId}`), {
-      calendarevents: events
-    })
-      .then(() => console.log("Events uploaded"))
-      .catch((error) => console.log("Error: ", error));
+    if (!loading) {
+      const sessionData = JSON.parse(localStorage.getItem('kitchenSession'));
+      update(ref(database, `rooms/${sessionData.roomId}`), {
+        calendarevents: events
+      })
+        .then(() => console.log("Events uploaded"))
+        .catch((error) => console.log("Error: ", error));
+    }
+    
   }, [events]);
+
+  if (loading) {
+    return(
+      <div>Loading...</div>
+    )
+  }
 
   return (
     <div style={{ height: 500 }}>
