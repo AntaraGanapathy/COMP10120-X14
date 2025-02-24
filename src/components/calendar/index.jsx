@@ -56,7 +56,43 @@ const MyCalendar = () => {
   );
 
   useEffect(() => {
-    const sessionData = JSON.parse(localStorage.getItem('kitchenSession'))
+    const getEvents = async () => {
+      try {
+        const sessionData = JSON.parse(localStorage.getItem('kitchenSession'));
+        const snapshot = await get(ref(database, `rooms/${sessionData.roomId}`));
+        if (snapshot.exists()) {
+          const eventsData = snapshot.val();
+
+          console.log(eventsData.calendarevents)
+          
+          const newEvents = Object.keys(eventsData.calendarevents).map((key) => {
+            const currentEvent = eventsData.calendarevents[key];
+            return {
+              title: currentEvent.title,
+              start: new Date(currentEvent.start),
+              end: new Date(currentEvent.end)
+            };
+          });
+
+          setEvents(newEvents)
+
+          console.log("new events")
+          console.log(newEvents)
+
+        } else {
+          console.log("No events")
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    };
+
+    getEvents();
+
+  }, []);
+
+  useEffect(() => {
+    const sessionData = JSON.parse(localStorage.getItem('kitchenSession'));
     update(ref(database, `rooms/${sessionData.roomId}`), {
       calendarevents: events
     })
