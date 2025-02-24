@@ -1,8 +1,9 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { set } from "firebase/database";
+import { ref, set, get, update } from "firebase/database";
+import { database } from "../../firebase/firebase";
 
 // Use Moment.js for localizing the calendar
 const localizer = momentLocalizer(moment);
@@ -37,6 +38,7 @@ const MyCalendar = () => {
   
   const handleSelectSlot = useCallback(
     ({start, end}) => {
+      console.log("Select slot")
       const title = window.prompt("Enter title");
       if (title) {
         setEvents((prev) => [...prev, {start, end, title}]);
@@ -44,6 +46,23 @@ const MyCalendar = () => {
     },
     [setEvents]
   );
+
+  const handleSelectEvent = useCallback(
+    (event) => {
+      console.log("Selected event")
+      window.alert(event.title)
+    },
+    []
+  );
+
+  useEffect(() => {
+    const sessionData = JSON.parse(localStorage.getItem('kitchenSession'))
+    update(ref(database, `rooms/${sessionData.roomId}`), {
+      calendarevents: events
+    })
+      .then(() => console.log("Events uploaded"))
+      .catch((error) => console.log("Error: ", error));
+  }, [events]);
 
   return (
     <div style={{ height: 500 }}>
@@ -53,21 +72,12 @@ const MyCalendar = () => {
         startAccessor="start"
         endAccessor="end"
         onSelectSlot={handleSelectSlot}
+        onSelectEvent={handleSelectEvent}
+        selectable
         style={{ height: 400 }}
       />
     </div>
   );
 };
 
-// const handleSelectSlot = useCallback(
-//   ({start, end}) => {
-//     const title = window.prompt("Enter title");
-//     if (title) {
-//       setEvents((prev) => [...prev, {start, end, title}]);
-//     }
-//   },
-//   [setEvents]
-// );
-
 export default MyCalendar;
-
