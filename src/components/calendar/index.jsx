@@ -4,6 +4,7 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { ref, set, get, update } from "firebase/database";
 import { database } from "../../firebase/firebase";
+import "./calendar.css";
 
 // Use Moment.js for localizing the calendar
 const localizer = momentLocalizer(moment);
@@ -113,7 +114,7 @@ const MyCalendar = () => {
   }
 
   return (
-    <div style={{ height: 500 }}>
+    <div className="calendar-div">
       <Calendar
         localizer={localizer}
         events={events}
@@ -122,7 +123,8 @@ const MyCalendar = () => {
         onSelectSlot={handleSelectSlot}
         onSelectEvent={handleSelectEvent}
         selectable
-        style={{ height: 400 }}
+        //style={{ height: 800, width: 1500}}
+        className="calendar"
       />
     </div>
   );
