@@ -32,11 +32,7 @@ const Login = () => {
 
     return (
         <div className="w-[100vw]" >
-<<<<<<< HEAD
             {userLoggedIn && (<Navigate to={'/dashboard'} replace={true} />)}
-=======
-            {userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
->>>>>>> main
 
             <div className="flex justify-center items-center">
                 <div className="w-auto p-8 space-y-8 shadow-lg rounded-lg bg-white">
