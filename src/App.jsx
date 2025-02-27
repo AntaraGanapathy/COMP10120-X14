@@ -30,7 +30,7 @@ function AppRoutes() {
     { path: "/register", element: <Register /> },
     { path: "/manage-room", element: <RoomManager /> },
     { path: "/add-item", element:<AddSplitterItem />},
-    { path: "/grocery-list", element:<CostSplitterMaster />}
+    { path: "/cost-splitter", element:<CostSplitterMaster />}
   ];
   
   return useRoutes(routesArray);
