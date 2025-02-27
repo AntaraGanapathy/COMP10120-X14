@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { ref, set, get, update } from "firebase/database";
 import { database } from "../../firebase/firebase";
 
-const AddGroceryItem = () => {
+const AddSplitterItem = () => {
   const [itemName, setItemName] = useState("");
   const [cost, setCost] = useState("");
   const [payer, setPayer] = useState("");
@@ -123,4 +123,4 @@ const AddGroceryItem = () => {
   );
 };
 
-export default AddGroceryItem;
+export default AddSplitterItem;
