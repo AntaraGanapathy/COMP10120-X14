@@ -5,6 +5,7 @@ import Login from "./components/auth/login";
 import Register from "./components/auth/register";
 import Dashboard from './components/dashboard';
 import RoomManager from './components/RoomManager';
+import CostSplitter from './components/groceryList/addItem';
 
 function AppRoutes() {
   const { currentUser } = useAuth();
@@ -25,6 +26,7 @@ function AppRoutes() {
     { path: "/dashboard", element: <Dashboard /> },
     { path: "/register", element: <Register /> },
     { path: "/manage-room", element: <RoomManager /> },
+    // { path: "/grocery-list", element: <CostSplitter /> },
   ];
   
   return useRoutes(routesArray);
