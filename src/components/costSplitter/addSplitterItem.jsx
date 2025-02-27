@@ -43,7 +43,7 @@ const AddSplitterItem = () => {
         const updatedUsers = { ...users };
         
         Object.keys(updatedUsers).forEach((user) => {
-          if (user === payer || peopleWhoOwe.includes(user)) {
+          if (peopleWhoOwe.includes(user)) {
             if (!updatedUsers[user].costSplitter) {
               updatedUsers[user].costSplitter = [];
             }
