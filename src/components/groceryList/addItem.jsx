@@ -1,85 +1,116 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { ref, set, get, update } from "firebase/database";
+import { database } from "../../firebase/firebase";
 
-const AddGroceryItem = ({ roomData }) => {
-//   const [itemName, setItemName] = useState("");
-//   const [cost, setCost] = useState("");
-//   const [payer, setPayer] = useState("");
-//   const [peopleWhoOwe, setPeopleWhoOwe] = useState([]);
+const AddGroceryItem = () => {
+  const [itemName, setItemName] = useState("");
+  const [cost, setCost] = useState("");
+  const [payer, setPayer] = useState("");
+  const [peopleWhoOwe, setPeopleWhoOwe] = useState("");
+  const [loading, setLoading] = useState(true);
 
-//   const users = Object.keys(roomData.users || {});
+  useEffect(() => {
+    const getCosts = async () => {
+      try {
+        const sessionData = JSON.parse(localStorage.getItem("kitchenSession"));
+        const snapshot = await get(ref(database, `rooms/${sessionData.roomId}/costSplitter`));
+        if (snapshot.exists()) {
+          const costData = snapshot.val();
+          setItemName(costData.itemName || "");
+          setCost(costData.cost || "");
+          setPayer(costData.payer || "");
+          setPeopleWhoOwe(costData.peopleWhoOwe || "");
+        } else {
+          console.log("No cost data available");
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getCosts();
+  }, []);
 
-//   const handleCheckboxChange = (person) => {
-//     setPeopleWhoOwe((prev) =>
-//       prev.includes(person)
-//         ? prev.filter((p) => p !== person)
-//         : [...prev, person]
-//     );
-//   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const sessionData = JSON.parse(localStorage.getItem("kitchenSession"));
+    const roomRef = ref(database, `rooms/${sessionData.roomId}/users`);
+    try {
+      const snapshot = await get(roomRef);
+      if (snapshot.exists()) {
+        const users = snapshot.val();
+        const updatedUsers = { ...users };
+        
+        Object.keys(updatedUsers).forEach((user) => {
+          if (user === payer || peopleWhoOwe.includes(user)) {
+            if (!updatedUsers[user].costSplitter) {
+              updatedUsers[user].costSplitter = [];
+            }
+            updatedUsers[user].costSplitter.push({
+              item: itemName,
+              payer: payer,
+              peopleWhoOwe: peopleWhoOwe,
+              cost: cost,
+            });
+          }
+        });
+        
+        await update(roomRef, updatedUsers);
+        console.log("Cost data successfully added");
+      }
+    } catch (error) {
+      console.error("Error updating cost data: ", error);
+    }
+  };
 
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     const formData = {
-//       itemName,
-//       cost: parseFloat(cost),
-//       payer,
-//       peopleWhoOwe,
-//     };
-//     console.log("Submitted Data:", formData);
-//     // Handle form submission (e.g., send data to backend)
-//   };
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    // <div>kjwqndhqowhndhoqw</div>
     <div className="p-4 border rounded-lg shadow-md bg-white max-w-md mx-auto">
       <h2 className="text-xl font-bold mb-4">Cost Splitter</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block font-medium">Item Name</label>
+          <label className="block font-medium text-black">Item Name</label>
           <input
             type="text"
             value={itemName}
             onChange={(e) => setItemName(e.target.value)}
-            className="w-full p-2 border rounded-md"
+            className="w-full p-2 border rounded-md text-black"
             required
           />
         </div>
         <div>
-          <label className="block font-medium">Cost</label>
+          <label className="block font-medium text-black">Cost</label>
           <input
             type="number"
             value={cost}
             onChange={(e) => setCost(e.target.value)}
-            className="w-full p-2 border rounded-md"
+            className="w-full p-2 border rounded-md text-black"
             required
           />
         </div>
         <div>
-          <label className="block font-medium">Payer</label>
-          <select
+          <label className="block font-medium text-black">Payer</label>
+          <input
+            type="text"
             value={payer}
             onChange={(e) => setPayer(e.target.value)}
-            className="w-full p-2 border rounded-md"
+            className="w-full p-2 border rounded-md text-black"
             required
-          >
-            <option value="" disabled>Select payer</option>
-            {users.map((user) => (
-              <option key={user} value={user}>{user}</option>
-            ))}
-          </select>
+          />
         </div>
         <div>
-          <label className="block font-medium">People Who Owe</label>
-          {users.map((user) => (
-            <div key={user} className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                id={user}
-                checked={peopleWhoOwe.includes(user)}
-                onChange={() => handleCheckboxChange(user)}
-              />
-              <label htmlFor={user}>{user}</label>
-            </div>
-          ))}
+          <label className="block font-medium text-black">People Who Owe</label>
+          <input
+            type="text"
+            value={peopleWhoOwe}
+            onChange={(e) => setPeopleWhoOwe(e.target.value)}
+            className="w-full p-2 border rounded-md text-black"
+            required
+          />
         </div>
         <button
           type="submit"
