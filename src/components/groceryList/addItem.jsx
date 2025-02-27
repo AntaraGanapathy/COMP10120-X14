@@ -1,34 +1,35 @@
 import { useState } from "react";
 
 const AddGroceryItem = ({ roomData }) => {
-  const [itemName, setItemName] = useState("");
-  const [cost, setCost] = useState("");
-  const [payer, setPayer] = useState("");
-  const [peopleWhoOwe, setPeopleWhoOwe] = useState([]);
+//   const [itemName, setItemName] = useState("");
+//   const [cost, setCost] = useState("");
+//   const [payer, setPayer] = useState("");
+//   const [peopleWhoOwe, setPeopleWhoOwe] = useState([]);
 
-  const users = Object.keys(roomData.users || {});
+//   const users = Object.keys(roomData.users || {});
 
-  const handleCheckboxChange = (person) => {
-    setPeopleWhoOwe((prev) =>
-      prev.includes(person)
-        ? prev.filter((p) => p !== person)
-        : [...prev, person]
-    );
-  };
+//   const handleCheckboxChange = (person) => {
+//     setPeopleWhoOwe((prev) =>
+//       prev.includes(person)
+//         ? prev.filter((p) => p !== person)
+//         : [...prev, person]
+//     );
+//   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = {
-      itemName,
-      cost: parseFloat(cost),
-      payer,
-      peopleWhoOwe,
-    };
-    console.log("Submitted Data:", formData);
-    // Handle form submission (e.g., send data to backend)
-  };
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     const formData = {
+//       itemName,
+//       cost: parseFloat(cost),
+//       payer,
+//       peopleWhoOwe,
+//     };
+//     console.log("Submitted Data:", formData);
+//     // Handle form submission (e.g., send data to backend)
+//   };
 
   return (
+    // <div>kjwqndhqowhndhoqw</div>
     <div className="p-4 border rounded-lg shadow-md bg-white max-w-md mx-auto">
       <h2 className="text-xl font-bold mb-4">Cost Splitter</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
