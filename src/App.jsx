@@ -5,7 +5,7 @@ import Login from "./components/auth/login";
 import Register from "./components/auth/register";
 import Dashboard from './components/dashboard';
 import RoomManager from './components/RoomManager';
-import CostSplitter from './components/groceryList/addItem';
+import AddGroceryItem from './components/groceryList/addItem';
 
 function AppRoutes() {
   const { currentUser } = useAuth();
@@ -14,8 +14,10 @@ function AppRoutes() {
   useEffect(() => {
     if (currentUser) {
       const session = JSON.parse(localStorage.getItem('kitchenSession'));
-      if (session) {
-        navigate('/dashboard', { state: session });
+      if (session && (window.location.pathname === "/login" || window.location.pathname === "/register")) {
+        if (window.location.pathname !== "/dashboard") {
+          navigate('/dashboard', { state: session });
+        }
       }
     }
   }, [currentUser, navigate]);
@@ -26,7 +28,7 @@ function AppRoutes() {
     { path: "/dashboard", element: <Dashboard /> },
     { path: "/register", element: <Register /> },
     { path: "/manage-room", element: <RoomManager /> },
-    // { path: "/grocery-list", element: <CostSplitter /> },
+    { path: "/grocery-list", element:<AddGroceryItem />}
   ];
   
   return useRoutes(routesArray);

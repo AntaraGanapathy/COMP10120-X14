@@ -159,13 +159,13 @@ const Dashboard = () => {
           </button>
           <button onClick={() => { doSignOut().then(() => { navigate('/login') }) }} className='bg-gray-200 px-4 py-2 rounded-md transition-colors'>Logout</button>
           <button
-                onClick={() => navigate('/calendar')}
+                onClick={() => navigate('/calendar-page')}
                 className="bg-gray-200 px-4 py-2 rounded-md transition-colors"
               >
                 Calendar
               </button>
               <button
-                onClick={navigate('/grocery-list')}
+                onClick={() => navigate('/grocery-list')}
                 className="bg-gray-200 px-4 py-2 rounded-md transition-colors"
               >
                 Cost Splitter

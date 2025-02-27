@@ -5,7 +5,7 @@ import { ref, onValue, remove, get } from 'firebase/database';
 import { database } from '../../firebase/firebase';
 import { doSignOut } from '../../firebase/auth'
 
-const groceryList = () => {
+const GroceryListMaster = () => {
     const { currentUser } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
@@ -44,4 +44,4 @@ const groceryList = () => {
     )
 }
 
-export default groceryList
+export default GroceryListMaster

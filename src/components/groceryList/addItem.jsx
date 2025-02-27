@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const CostSplitter = ({ roomData }) => {
+const AddGroceryItem = ({ roomData }) => {
   const [itemName, setItemName] = useState("");
   const [cost, setCost] = useState("");
   const [payer, setPayer] = useState("");
@@ -91,4 +91,4 @@ const CostSplitter = ({ roomData }) => {
   );
 };
 
-export default CostSplitter;
+export default AddGroceryItem;
