@@ -1,31 +1,36 @@
-import React from 'react';
-import { BrowserRouter, useRoutes } from 'react-router-dom';
-
+import React, { useEffect } from 'react';
+import { BrowserRouter, useRoutes, useNavigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from "./contexts/authContext";
 import Login from "./components/auth/login";
 import Register from "./components/auth/register";
-import Header from "./components/header";
-import Home from "./components/home";
-import { AuthProvider } from "./contexts/authContext";
+import Dashboard from './components/dashboard';
+import RoomManager from './components/RoomManager';
+import MyCalendar from './components/calendar';
 
 function AppRoutes() {
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentUser) {
+      const session = JSON.parse(localStorage.getItem('kitchenSession'));
+      if (session && (window.location.pathname === "/login" || window.location.pathname === "/register")) {
+        if (window.location.pathname !== "/dashboard") {
+          navigate('/dashboard', { state: session });
+        }
+      }
+    }
+  }, [currentUser, navigate]);
+
   const routesArray = [
-    {
-      path: "*",
-      element: <Login />,
-    },
-    {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/register",
-      element: <Register />,
-    },
-    {
-      path: "/home",
-      element: <Home />,
-    },
+    { path: "*", element: <Login /> },
+    { path: "/login", element: <Login /> },
+    { path: "/dashboard", element: <Dashboard /> },
+    { path: "/register", element: <Register /> },
+    { path: "/manage-room", element: <RoomManager /> },
+    { path: "/calendar-page", element:<MyCalendar />}
   ];
+  
   return useRoutes(routesArray);
 }
 
@@ -33,10 +38,7 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <Header />
-        {/* <div className="w-full h-screen "> */}
         <AppRoutes />
-        {/* </div> */}
       </BrowserRouter>
     </AuthProvider>
   );

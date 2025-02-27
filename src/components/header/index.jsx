@@ -13,6 +13,10 @@ const Header = () => {
                     ?
                     <>
                         <button onClick={() => { doSignOut().then(() => { navigate('/login') }) }} className='text-sm text-blue-600 underline'>Logout</button>
+<<<<<<< HEAD
+                        <Link className='text-sm text-blue-600 underline' to={'/roomid'}>Room ID</Link>
+=======
+>>>>>>> main
                     </>
                     :
                     <>
