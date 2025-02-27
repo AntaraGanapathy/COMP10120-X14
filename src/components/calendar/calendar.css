@@ -20,3 +20,7 @@
     height: 100vh;
     width: 100vw;
 }
+
+.calendar .rbc-btn-group button:nth-child(1) { 
+    display: none;
+  }

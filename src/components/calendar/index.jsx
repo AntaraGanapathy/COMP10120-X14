@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Calendar, momentLocalizer } from "react-big-calendar";
+import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { ref, set, get, update } from "firebase/database";
@@ -25,18 +25,7 @@ const localizer = momentLocalizer(moment);
 const MyCalendar = () => {
 
   const [loading, setLoading] = useState(true);
-  const [events, setEvents] = useState([
-    {
-      title: "Meeting with John",
-      start: new Date(2025, 1, 20, 10, 0), // February 20th, 2025, 10:00 AM
-      end: new Date(2025, 1, 20, 12, 0),   // February 20th, 2025, 12:00 PM
-    },
-    {
-      title: "Lunch with Sarah",
-      start: new Date(2025, 1, 21, 13, 0), // February 21st, 2025, 1:00 PM
-      end: new Date(2025, 1, 21, 14, 0),   // February 21st, 2025, 2:00 PM
-    },
-  ]);
+  const [events, setEvents] = useState([]);
   
   const handleSelectSlot = useCallback(
     ({start, end}) => {
@@ -122,9 +111,9 @@ const MyCalendar = () => {
         endAccessor="end"
         onSelectSlot={handleSelectSlot}
         onSelectEvent={handleSelectEvent}
-        selectable
-        //style={{ height: 800, width: 1500}}
+        selectable        
         className="calendar"
+        defaultView="week"
       />
     </div>
   );
