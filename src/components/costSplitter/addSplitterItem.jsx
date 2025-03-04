@@ -6,31 +6,35 @@ const AddSplitterItem = () => {
   const [itemName, setItemName] = useState("");
   const [cost, setCost] = useState("");
   const [payer, setPayer] = useState("");
-  const [peopleWhoOwe, setPeopleWhoOwe] = useState("");
+  const [peopleWhoOwe, setPeopleWhoOwe] = useState([]);
+  const [kitchenMembers, setKitchenMembers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getCosts = async () => {
+    const fetchKitchenData = async () => {
       try {
         const sessionData = JSON.parse(localStorage.getItem("kitchenSession"));
-        const snapshot = await get(ref(database, `rooms/${sessionData.roomId}/costSplitter`));
+        const roomRef = ref(database, `rooms/${sessionData.roomId}/users`);
+        const snapshot = await get(roomRef);
         if (snapshot.exists()) {
-          const costData = snapshot.val();
-          setItemName(costData.itemName || "");
-          setCost(costData.cost || "");
-          setPayer(costData.payer || "");
-          setPeopleWhoOwe(costData.peopleWhoOwe || "");
-        } else {
-          console.log("No cost data available");
+          setKitchenMembers(Object.keys(snapshot.val()));
         }
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching kitchen members:", error);
       } finally {
         setLoading(false);
       }
     };
-    getCosts();
+    fetchKitchenData();
   }, []);
+
+  const handleCheckboxChange = (member) => {
+    setPeopleWhoOwe((prev) =>
+      prev.includes(member)
+        ? prev.filter((m) => m !== member)
+        : [...prev, member]
+    );
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,26 +45,24 @@ const AddSplitterItem = () => {
       if (snapshot.exists()) {
         const users = snapshot.val();
         const updatedUsers = { ...users };
-        
-        Object.keys(updatedUsers).forEach((user) => {
-          if (peopleWhoOwe.includes(user)) {
-            if (!updatedUsers[user].costSplitter) {
-              updatedUsers[user].costSplitter = [];
-            }
-            updatedUsers[user].costSplitter.push({
-              item: itemName,
-              payer: payer,
-              peopleWhoOwe: peopleWhoOwe,
-              cost: cost,
-            });
+
+        peopleWhoOwe.forEach((user) => {
+          if (!updatedUsers[user].costSplitter) {
+            updatedUsers[user].costSplitter = [];
           }
+          updatedUsers[user].costSplitter.push({
+            item: itemName,
+            payer: payer,
+            peopleWhoOwe: peopleWhoOwe,
+            cost: cost,
+          });
         });
-        
+
         await update(roomRef, updatedUsers);
         console.log("Cost data successfully added");
       }
     } catch (error) {
-      console.error("Error updating cost data: ", error);
+      console.error("Error updating cost data:", error);
     }
   };
 
@@ -104,13 +106,21 @@ const AddSplitterItem = () => {
         </div>
         <div>
           <label className="block font-medium text-black">People Who Owe</label>
-          <input
-            type="text"
-            value={peopleWhoOwe}
-            onChange={(e) => setPeopleWhoOwe(e.target.value)}
-            className="w-full p-2 border rounded-md text-black"
-            required
-          />
+          <div className="border rounded-md p-2">
+            {kitchenMembers.map((member) => (
+              <div key={member} className="flex items-center">
+                <input
+                  type="checkbox"
+                  id={member}
+                  checked={peopleWhoOwe.includes(member)}
+                  onChange={() => handleCheckboxChange(member)}
+                />
+                <label htmlFor={member} className="ml-2 text-black">
+                  {member}
+                </label>
+              </div>
+            ))}
+          </div>
         </div>
         <button
           type="submit"
