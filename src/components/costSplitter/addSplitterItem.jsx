@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ref, set, get, update } from "firebase/database";
 import { database } from "../../firebase/firebase";
+import { useNavigate } from 'react-router-dom';
 
 const AddSplitterItem = () => {
   const [itemName, setItemName] = useState("");
@@ -9,6 +10,7 @@ const AddSplitterItem = () => {
   const [peopleWhoOwe, setPeopleWhoOwe] = useState([]);
   const [kitchenMembers, setKitchenMembers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchKitchenData = async () => {
@@ -78,74 +80,78 @@ const AddSplitterItem = () => {
   }
 
   return (
-    <div className="p-4 border rounded-lg shadow-md bg-white max-w-md mx-auto">
-      <h2 className="text-xl font-bold mb-4">Cost Splitter</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block font-medium text-black">Item Name</label>
-          <input
-            type="text"
-            value={itemName}
-            onChange={(e) => setItemName(e.target.value)}
-            className="w-full p-2 border rounded-md text-black"
-            required
-          />
-        </div>
-        <div>
-          <label className="block font-medium text-black">Cost</label>
-          <input
-            type="number"
-            value={cost}
-            onChange={(e) => setCost(e.target.value)}
-            className="w-full p-2 border rounded-md text-black"
-            required
-          />
-        </div>
-        <div>
-          <label className="block font-medium text-black">Payer</label>
-          <div className="border rounded-md p-2">
-            {kitchenMembers.map((member) => (
-              <div key={member} className="flex items-center">
-                <input
-                  type="radio"
-                  name="payer"
-                  id={`payer-${member}`}
-                  checked={payer === member}
-                  onChange={() => handlePayerChange(member)}
-                />
-                <label htmlFor={`payer-${member}`} className="ml-2 text-black">
-                  {member}
-                </label>
-              </div>
-            ))}
+    <div className="min-w-screen flex items-center justify-center mt-4 mb-4">
+      
+      <div className="p-4 border rounded-lg shadow-md bg-white max-w-md min-w-sm mx-auto">
+        <h2 className="text-3xl text-black font-bold mb-6 mt-4 text-center">Cost Splitter</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block font-medium text-black">Item Name</label>
+            <input
+              type="text"
+              value={itemName}
+              onChange={(e) => setItemName(e.target.value)}
+              className="w-full p-2 border rounded-md text-black"
+              required
+            />
           </div>
-        </div>
-        <div>
-          <label className="block font-medium text-black">People Who Owe</label>
-          <div className="border rounded-md p-2">
-            {kitchenMembers.map((member) => (
-              <div key={member} className="flex items-center">
-                <input
-                  type="checkbox"
-                  id={`owe-${member}`}
-                  checked={peopleWhoOwe.includes(member)}
-                  onChange={() => handleCheckboxChange(member)}
-                  disabled={member === payer}
-                />
-                <label htmlFor={`owe-${member}`} className="ml-2 text-black">
-                  {member}
-                </label>
-              </div>
-            ))}
+          <div>
+            <label className="block font-medium text-black">Cost</label>
+            <input
+              type="number"
+              value={cost}
+              onChange={(e) => setCost(e.target.value)}
+              className="w-full p-2 border rounded-md text-black"
+              required
+            />
           </div>
-        </div>
-        <button
-          type="submit"
-          className="w-full p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-        >
-          Submit
-        </button>
-      </form>
+          <div>
+            <label className="block font-medium text-black">Payer</label>
+            <div className="border rounded-md p-2">
+              {kitchenMembers.map((member) => (
+                <div key={member} className="flex items-center">
+                  <input
+                    type="radio"
+                    name="payer"
+                    id={`payer-${member}`}
+                    checked={payer === member}
+                    onChange={() => handlePayerChange(member)}
+                  />
+                  <label htmlFor={`payer-${member}`} className="ml-2 text-black">
+                    {member}
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <label className="block font-medium text-black">People Who Owe</label>
+            <div className="border rounded-md p-2">
+              {kitchenMembers.map((member) => (
+                <div key={member} className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id={`owe-${member}`}
+                    checked={peopleWhoOwe.includes(member)}
+                    onChange={() => handleCheckboxChange(member)}
+                    disabled={member === payer}
+                  />
+                  <label htmlFor={`owe-${member}`} className="ml-2 text-black">
+                    {member}
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+          <button
+            type="submit"
+            onClick={() => navigate('/cost-splitter')}
+            className="w-full p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
