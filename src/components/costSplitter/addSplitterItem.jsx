@@ -29,11 +29,18 @@ const AddSplitterItem = () => {
   }, []);
 
   const handleCheckboxChange = (member) => {
-    setPeopleWhoOwe((prev) =>
-      prev.includes(member)
-        ? prev.filter((m) => m !== member)
-        : [...prev, member]
-    );
+    if (member !== payer) {
+      setPeopleWhoOwe((prev) =>
+        prev.includes(member)
+          ? prev.filter((m) => m !== member)
+          : [...prev, member]
+      );
+    }
+  };
+
+  const handlePayerChange = (member) => {
+    setPayer(member);
+    setPeopleWhoOwe((prev) => prev.filter((m) => m !== member));
   };
 
   const handleSubmit = async (e) => {
@@ -96,13 +103,22 @@ const AddSplitterItem = () => {
         </div>
         <div>
           <label className="block font-medium text-black">Payer</label>
-          <input
-            type="text"
-            value={payer}
-            onChange={(e) => setPayer(e.target.value)}
-            className="w-full p-2 border rounded-md text-black"
-            required
-          />
+          <div className="border rounded-md p-2">
+            {kitchenMembers.map((member) => (
+              <div key={member} className="flex items-center">
+                <input
+                  type="radio"
+                  name="payer"
+                  id={`payer-${member}`}
+                  checked={payer === member}
+                  onChange={() => handlePayerChange(member)}
+                />
+                <label htmlFor={`payer-${member}`} className="ml-2 text-black">
+                  {member}
+                </label>
+              </div>
+            ))}
+          </div>
         </div>
         <div>
           <label className="block font-medium text-black">People Who Owe</label>
@@ -111,11 +127,12 @@ const AddSplitterItem = () => {
               <div key={member} className="flex items-center">
                 <input
                   type="checkbox"
-                  id={member}
+                  id={`owe-${member}`}
                   checked={peopleWhoOwe.includes(member)}
                   onChange={() => handleCheckboxChange(member)}
+                  disabled={member === payer}
                 />
-                <label htmlFor={member} className="ml-2 text-black">
+                <label htmlFor={`owe-${member}`} className="ml-2 text-black">
                   {member}
                 </label>
               </div>
