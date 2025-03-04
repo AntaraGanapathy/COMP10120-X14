@@ -158,6 +158,7 @@ const AddSplitterItem = () => {
           </div>
           <button
             type="submit"
+            onClick={() => navigate('/cost-splitter')}
             className="w-full p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
           >
             Submit
