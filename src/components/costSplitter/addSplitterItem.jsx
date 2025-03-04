@@ -10,6 +10,7 @@ const AddSplitterItem = () => {
   const [peopleWhoOwe, setPeopleWhoOwe] = useState([]);
   const [kitchenMembers, setKitchenMembers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,8 +46,19 @@ const AddSplitterItem = () => {
     setPeopleWhoOwe((prev) => prev.filter((m) => m !== member));
   };
 
+  const validateForm = () => {
+    if (!itemName || !cost || !payer || peopleWhoOwe.length === 0) {
+      setError("All fields must be filled, and at least one person must owe.");
+      return false;
+    }
+    setError("");
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
+    
     const sessionData = JSON.parse(localStorage.getItem("kitchenSession"));
     const roomRef = ref(database, `rooms/${sessionData.roomId}/users`);
     try {
@@ -84,6 +96,7 @@ const AddSplitterItem = () => {
       
       <div className="p-4 border rounded-lg shadow-md bg-white max-w-md min-w-sm mx-auto">
         <h2 className="text-3xl text-black font-bold mb-6 mt-4 text-center">Cost Splitter</h2>
+        {error && <div className="text-red-500 mb-4">{error}</div>}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block font-medium text-black">Item Name</label>
@@ -145,7 +158,6 @@ const AddSplitterItem = () => {
           </div>
           <button
             type="submit"
-            onClick={() => navigate('/cost-splitter')}
             className="w-full p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
           >
             Submit
