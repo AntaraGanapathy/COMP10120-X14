@@ -34,14 +34,6 @@
     animation: logo-spin infinite 20s linear;
   }
 }
-<<<<<<< HEAD
-/* Add these keyframes */
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-=======
->>>>>>> main
 
 .card {
   padding: 2em;
