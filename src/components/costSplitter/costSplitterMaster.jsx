@@ -1,47 +1,85 @@
-import React, { useEffect, useState } from 'react';
-import { useAuth } from '../../contexts/authContext';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { ref, onValue, remove, get } from 'firebase/database';
-import { database } from '../../firebase/firebase';
-import { doSignOut } from '../../firebase/auth'
+import React, { useEffect, useState } from "react";
+import { ref, onValue } from "firebase/database";
+import { database } from "../../firebase/firebase";
+import { useNavigate } from "react-router-dom";
 
 const CostSplitterMaster = () => {
-    const { currentUser } = useAuth();
-    const location = useLocation();
-    const navigate = useNavigate();
-    const [kitchenData, setKitchenData] = useState(null);
-    const [members, setMembers] = useState([]);
-    
-    const session = JSON.parse(localStorage.getItem('kitchenSession')) || location.state;
-    const { roomId, userName, role, kitchenName } = session || {};
+  const [costs, setCosts] = useState([]);
+  const session = JSON.parse(localStorage.getItem("kitchenSession"));
+  const { roomId } = session || {};
 
-    return(
-        <div className="bg-white rounded-lg shadow-md p-6 mb-6 mr-4">
-            <div className="border-t pt-6">
-                <h2 className="text-xl text-black font-semibold mb-4">Kitchen Members</h2>
-                <div className="space-y-3">
-                {members.map(([username, data]) => (
-                <div 
-                    key={username}
-                    className="flex items-center text-black justify-between p-3 bg-gray-50 rounded-md"
-                >
-                    <div>
-                    <span className="font-medium">{username}</span>
-                    {data.role === 'creator' && (
-                        <span className="ml-2 px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">
-                        Creator
-                        </span>
-                    )}
-                    </div>
-                    <span className="text-sm text-gray-500">
-                    Joined: {new Date(data.timestamp).toLocaleDateString()}
-                    </span>
-                </div>
-                ))}
-            </div>
-            </div>
-        </div>
-    )
-}
+  const navigate = useNavigate();
 
-export default CostSplitterMaster
+  useEffect(() => {
+    if (!roomId) return;
+
+    const costsRef = ref(database, `rooms/${roomId}/costSplitter`);
+
+    // Listen for real-time updates
+    onValue(costsRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const costList = Object.entries(snapshot.val()).map(([id, data]) => ({
+          id,
+          ...data,
+        }));
+        console.log("Updated costs:", costList); // Debugging
+        setCosts(costList);
+      } else {
+        setCosts([]);
+      }
+    });
+  }, [roomId]);
+
+  return (
+    <div className="flex flex-col items-center min-h-screen bg-gray-100 p-6">
+      <h2 className="text-2xl font-bold mb-6">Cost Splitter Table</h2>
+
+      <div className="text-center mb-4">
+        <button
+          onClick={() => navigate("/add-item")}
+          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+        >
+          Add New Cost Item
+        </button>
+      </div>
+
+      <div className="bg-white rounded-lg shadow-md p-6 w-full max-w-3xl">
+        <table className="w-full border-collapse border border-gray-300">
+          <thead className="bg-gray-200">
+            <tr>
+              <th className="border px-4 py-2">Item Name</th>
+              <th className="border px-4 py-2">Payer</th>
+              <th className="border px-4 py-2">People Owed</th>
+              <th className="border px-4 py-2">Cost (£)</th> {/* Updated header */}
+            </tr>
+          </thead>
+          <tbody>
+            {costs.length > 0 ? (
+              costs.map((cost) => (
+                <tr key={cost.id} className="border">
+                  <td className="border px-4 py-2">{cost.itemName}</td>
+                  <td className="border px-4 py-2">{cost.payer}</td>
+                  <td className="border px-4 py-2">
+                    {cost.peopleWhoOwe && cost.peopleWhoOwe.length > 0
+                      ? cost.peopleWhoOwe.join(", ")
+                      : ""} {/* Removes "N/A" */}
+                  </td>
+                  <td className="border px-4 py-2">£{parseFloat(cost.cost).toFixed(2)}</td> 
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4" className="text-center py-4 text-gray-500">
+                  No cost entries yet.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+export default CostSplitterMaster;
+
