@@ -170,6 +170,12 @@ const Dashboard = () => {
               >
                 Cost Splitter
               </button>
+              <button
+                onClick={() => navigate('/fridge-list')}
+                className="bg-gray-200 px-4 py-2 rounded-md transition-colors"
+              >
+                Fridge List
+              </button>
         </div>
       </div>
     </div>

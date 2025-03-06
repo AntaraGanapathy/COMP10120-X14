@@ -6,6 +6,7 @@ import Register from "./components/auth/register";
 import Dashboard from './components/dashboard';
 import RoomManager from './components/RoomManager';
 import MyCalendar from './components/calendar';
+import Fridge from './components/FridgeList/FridgeList';
 
 function AppRoutes() {
   const { currentUser } = useAuth();
@@ -28,7 +29,8 @@ function AppRoutes() {
     { path: "/dashboard", element: <Dashboard /> },
     { path: "/register", element: <Register /> },
     { path: "/manage-room", element: <RoomManager /> },
-    { path: "/calendar-page", element:<MyCalendar />}
+    { path: "/calendar-page", element:<MyCalendar />},
+    { path: "/fridge-list", element:<Fridge />}
   ];
   
   return useRoutes(routesArray);
