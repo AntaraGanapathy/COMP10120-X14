@@ -89,7 +89,7 @@ const MyCalendar = () => {
     if (!loading) {
       const sessionData = JSON.parse(localStorage.getItem("kitchenSession"));
       update(ref(database, `rooms/${sessionData.roomId}`), {
-        calendarevents: events
+        calendarevents: events,
       })
         .then(() => console.log("Events uploaded"))
         .catch((error) => console.log("Error: ", error));
