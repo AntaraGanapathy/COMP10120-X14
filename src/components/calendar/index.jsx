@@ -18,8 +18,10 @@ const MyCalendar = () => {
   const handleSelectSlot = useCallback(
     ({ start, end }) => {
       const title = window.prompt("Enter title");
+      const sessionData = JSON.parse(localStorage.getItem("kitchenSession"));
+      const username = sessionData.userName;
       if (title) {
-        setEvents((prev) => [...prev, { start, end, title }]);
+        setEvents((prev) => [...prev, { start, end, title, username }]);
       }
     },
     [setEvents]
@@ -56,14 +58,15 @@ const MyCalendar = () => {
         const snapshot = await get(ref(database, `rooms/${sessionData.roomId}`));
         if (snapshot.exists()) {
           const eventsData = snapshot.val();
-          
+          console.log(eventsData)
           if (eventsData.calendarevents) {
             const newEvents = Object.keys(eventsData.calendarevents).map((key) => {
               const currentEvent = eventsData.calendarevents[key];
               return {
                 title: currentEvent.title,
                 start: new Date(currentEvent.start),
-                end: new Date(currentEvent.end)
+                end: new Date(currentEvent.end),
+                username: currentEvent.username
               };
             });
             setEvents(newEvents);
@@ -182,6 +185,7 @@ const MyCalendar = () => {
                       <p className="text-xs font-normal text-gray-600">
                         {moment(event.end).diff(moment(event.start), 'minutes')} min
                       </p>
+                      <p className="text-xs font-normal text-gray-600">User: {event.username}</p>
                     </div>
                   );
                 })}
