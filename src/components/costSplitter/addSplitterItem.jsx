@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ref, push, get } from "firebase/database";
 import { database } from "../../firebase/firebase";
-import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate for redirection
+import { useNavigate } from "react-router-dom";  
 
 const AddSplitterItem = () => {
   const [itemName, setItemName] = useState("");
@@ -11,19 +11,18 @@ const AddSplitterItem = () => {
   const [kitchenMembers, setKitchenMembers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const navigate = useNavigate(); // ✅ Initialize useNavigate
+  const navigate = useNavigate();  
 
   useEffect(() => {
     const fetchKitchenData = async () => {
       try {
         const sessionData = JSON.parse(localStorage.getItem("kitchenSession"));
         if (!sessionData || !sessionData.roomId) return;
-        
-        // ✅ Fetch kitchen members from Firebase
+         
         const roomRef = ref(database, `rooms/${sessionData.roomId}/users`);
         const snapshot = await get(roomRef);
         if (snapshot.exists()) {
-          setKitchenMembers(Object.keys(snapshot.val())); // ✅ Store kitchen members in state
+          setKitchenMembers(Object.keys(snapshot.val()));  
         }
       } catch (error) {
         console.error("Error fetching kitchen members:", error);
@@ -44,11 +43,10 @@ const AddSplitterItem = () => {
 
   const handlePayerChange = (member) => {
     setPayer(member);
-    setPeopleWhoOwe((prev) => prev.filter((m) => m !== member)); // ✅ Remove payer from "People Who Owe" list
+    setPeopleWhoOwe((prev) => prev.filter((m) => m !== member));  
   };
 
   const validateForm = () => {
-    // ✅ Added validation: Ensure all fields are filled, and at least one person owes money
     if (!itemName || !cost || !payer || peopleWhoOwe.length === 0) {
       setError("All fields must be filled, and at least one person must owe.");
       return false;
@@ -71,21 +69,18 @@ const AddSplitterItem = () => {
       itemName,
       payer,
       peopleWhoOwe,
-      cost: parseFloat(cost), // ✅ Store cost as a number for proper formatting
+      cost: parseFloat(cost),  
     };
 
     try {
-      // ✅ Push new cost data to Firebase under `costSplitter`
       await push(ref(database, `rooms/${sessionData.roomId}/costSplitter`), costData);
       console.log("Cost data successfully added");
 
-      // ✅ Reset form fields after submission
       setItemName("");
       setCost("");
       setPayer("");
       setPeopleWhoOwe([]);
 
-      // ✅ Navigate to Cost Splitter Table (`/cost-splitter`) after submission
       navigate("/cost-splitter");
     } catch (error) {
       console.error("Error adding cost data:", error);
@@ -151,7 +146,7 @@ const AddSplitterItem = () => {
                     id={`owe-${member}`}
                     checked={peopleWhoOwe.includes(member)}
                     onChange={() => handleCheckboxChange(member)}
-                    disabled={member === payer} // ✅ Ensure payer cannot be in "People Who Owe"
+                    disabled={member === payer}  
                   />
                   <label htmlFor={`owe-${member}`} className="ml-2 text-black">
                     {member}
