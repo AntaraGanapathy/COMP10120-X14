@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chatscope/chat-ui-kit-react": "^2.0.3",
+    "@chatscope/chat-ui-kit-styles": "^1.4.0",
     "@tailwindcss/vite": "^4.0.3",
     "autoprefixer": "^10.4.20",
     "firebase": "^11.3.1",

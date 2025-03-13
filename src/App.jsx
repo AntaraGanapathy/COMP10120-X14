@@ -6,6 +6,7 @@ import Register from "./components/auth/register";
 import Dashboard from './components/dashboard';
 import RoomManager from './components/roommanager';
 import MyCalendar from './components/calendar';
+import ChatBot from './components/chatbot';
 
 function AppRoutes() {
   const { currentUser } = useAuth();
@@ -28,7 +29,8 @@ function AppRoutes() {
     { path: "/dashboard", element: <Dashboard /> },
     { path: "/register", element: <Register /> },
     { path: "/manage-room", element: <RoomManager /> },
-    { path: "/calendar-page", element:<MyCalendar />}
+    { path: "/calendar-page", element:<MyCalendar />},
+    { path: "/chatbot", element:<ChatBot />}
   ];
   
   return useRoutes(routesArray);

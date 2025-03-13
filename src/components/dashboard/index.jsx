@@ -170,6 +170,12 @@ const Dashboard = () => {
               >
                 Cost Splitter
               </button>
+              <button
+                onClick={() => navigate('/chatbot')}
+                className='bg-gray-200 px-4 py-2 rounded-md transition-colors'
+              >
+                ChatBot
+              </button>
         </div>
       </div>
     </div>
