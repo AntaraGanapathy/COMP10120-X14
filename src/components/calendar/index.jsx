@@ -14,18 +14,39 @@ const MyCalendar = () => {
   const [view, setView] = useState("week");
   const [date, setDate] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(moment().format("MMMM YYYY"));
+  const [showModal, setShowModal] = useState(false);
+  const [newEvent, setNewEvent] = useState({
+    title: "",
+    start: null,
+    end: null
+  });
 
   const handleSelectSlot = useCallback(
     ({ start, end }) => {
-      const title = window.prompt("Enter title");
+      setNewEvent({
+        title: "",
+        start,
+        end
+      });
+      setShowModal(true);
+    },
+    []
+  );
+
+  const handleCreateEvent = () => {
+    if (newEvent.title.trim()) {
       const sessionData = JSON.parse(localStorage.getItem("kitchenSession"));
       const username = sessionData.userName;
-      if (title) {
-        setEvents((prev) => [...prev, { start, end, title, username }]);
-      }
-    },
-    [setEvents]
-  );
+      
+      setEvents((prev) => [...prev, {
+        start: newEvent.start,
+        end: newEvent.end,
+        title: newEvent.title,
+        username
+      }]);
+      setShowModal(false);
+    }
+  };
 
   const handleSelectEvent = useCallback((event) => {
     window.alert(event.title);
@@ -274,6 +295,168 @@ const MyCalendar = () => {
           </div>
         </div>
       </div>
+
+      {/* Event Creation Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-white/40 backdrop-blur-[2px] flex items-center justify-center z-50">
+          <div className="bg-white/95 rounded-xl p-6 w-full max-w-md shadow-2xl border border-indigo-100">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-semibold text-gray-900">Create New Event</h3>
+              <button
+                onClick={() => setShowModal(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Event Title
+                </label>
+                <input
+                  type="text"
+                  value={newEvent.title}
+                  onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Enter event title"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Start Time
+                  </label>
+                  <div className="flex gap-2">
+                    <select
+                      value={moment(newEvent.start).format('hh')}
+                      onChange={(e) => {
+                        const newStart = new Date(newEvent.start);
+                        const currentHour = newStart.getHours();
+                        const isPM = currentHour >= 12;
+                        const newHour = parseInt(e.target.value);
+                        newStart.setHours(isPM ? newHour + 12 : newHour);
+                        setNewEvent({ ...newEvent, start: newStart });
+                      }}
+                      className="w-1/3 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    >
+                      {Array.from({ length: 12 }, (_, i) => (
+                        <option key={i} value={(i + 1).toString().padStart(2, '0')}>
+                          {(i + 1).toString().padStart(2, '0')}
+                        </option>
+                      ))}
+                    </select>
+                    <select
+                      value={moment(newEvent.start).format('mm')}
+                      onChange={(e) => {
+                        const newStart = new Date(newEvent.start);
+                        newStart.setMinutes(parseInt(e.target.value));
+                        setNewEvent({ ...newEvent, start: newStart });
+                      }}
+                      className="w-1/3 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    >
+                      {Array.from({ length: 12 }, (_, i) => (
+                        <option key={i} value={(i * 5).toString().padStart(2, '0')}>
+                          {(i * 5).toString().padStart(2, '0')}
+                        </option>
+                      ))}
+                    </select>
+                    <select
+                      value={moment(newEvent.start).format('A')}
+                      onChange={(e) => {
+                        const newStart = new Date(newEvent.start);
+                        const currentHour = newStart.getHours();
+                        const isPM = e.target.value === 'PM';
+                        const hour = currentHour % 12 || 12;
+                        newStart.setHours(isPM ? hour + 12 : hour);
+                        setNewEvent({ ...newEvent, start: newStart });
+                      }}
+                      className="w-1/3 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    >
+                      <option value="AM">AM</option>
+                      <option value="PM">PM</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    End Time
+                  </label>
+                  <div className="flex gap-2">
+                    <select
+                      value={moment(newEvent.end).format('hh')}
+                      onChange={(e) => {
+                        const newEnd = new Date(newEvent.end);
+                        const currentHour = newEnd.getHours();
+                        const isPM = currentHour >= 12;
+                        const newHour = parseInt(e.target.value);
+                        newEnd.setHours(isPM ? newHour + 12 : newHour);
+                        setNewEvent({ ...newEvent, end: newEnd });
+                      }}
+                      className="w-1/3 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    >
+                      {Array.from({ length: 12 }, (_, i) => (
+                        <option key={i} value={(i + 1).toString().padStart(2, '0')}>
+                          {(i + 1).toString().padStart(2, '0')}
+                        </option>
+                      ))}
+                    </select>
+                    <select
+                      value={moment(newEvent.end).format('mm')}
+                      onChange={(e) => {
+                        const newEnd = new Date(newEvent.end);
+                        newEnd.setMinutes(parseInt(e.target.value));
+                        setNewEvent({ ...newEvent, end: newEnd });
+                      }}
+                      className="w-1/3 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    >
+                      {Array.from({ length: 12 }, (_, i) => (
+                        <option key={i} value={(i * 5).toString().padStart(2, '0')}>
+                          {(i * 5).toString().padStart(2, '0')}
+                        </option>
+                      ))}
+                    </select>
+                    <select
+                      value={moment(newEvent.end).format('A')}
+                      onChange={(e) => {
+                        const newEnd = new Date(newEvent.end);
+                        const currentHour = newEnd.getHours();
+                        const isPM = e.target.value === 'PM';
+                        const hour = currentHour % 12 || 12;
+                        newEnd.setHours(isPM ? hour + 12 : hour);
+                        setNewEvent({ ...newEvent, end: newEnd });
+                      }}
+                      className="w-1/3 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    >
+                      <option value="AM">AM</option>
+                      <option value="PM">PM</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div className="text-sm text-gray-500">
+                Duration: {moment(newEvent.end).diff(moment(newEvent.start), 'minutes')} minutes
+              </div>
+              <div className="flex justify-end gap-3 mt-6">
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="px-4 py-2 text-gray-700 hover:text-gray-900"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleCreateEvent}
+                  className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                >
+                  Create Event
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
