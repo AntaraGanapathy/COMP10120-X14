@@ -95,7 +95,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="bg-white">
       {/* Navbar */}
       <header className="bg-gray-800 text-white flex justify-between items-center p-4 w-full shadow-md fixed top-0 left-0 right-0 z-10">
         {/* <h1 className="text-lg font-semibold">Kitchen Manager</h1> */}
@@ -105,7 +105,7 @@ const Dashboard = () => {
         </div>
       </header>
 
-      <div className="p-6 mt-16 flex flex-col gap-6">
+      <div className="p-6 mt-16 flex flex-col gap-6 min-h-screen flex flex-col min-w-screen">
         <div className="flex flex-col bg-white rounded-lg shadow-md p-6 max-w-lg">
           <h1 className="text-3xl font-bold text-black">{kitchenData?.name || kitchenName}</h1>
           <p className="text-gray-600 mt-2">Kitchen ID: {roomId}</p>
