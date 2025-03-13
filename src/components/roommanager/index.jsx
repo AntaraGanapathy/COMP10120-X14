@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ref, set, get } from 'firebase/database';
-import { database } from '../firebase/firebase';
+import { database } from '../../firebase/firebase';
 import { useNavigate } from 'react-router-dom';
 
 const RoomManager = () => {
