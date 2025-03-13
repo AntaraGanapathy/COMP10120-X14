@@ -85,7 +85,7 @@ const Dashboard = () => {
           <p className="text-xl mb-4">Hello {currentUser.displayName || currentUser.email}</p>
           <button
             onClick={() => navigate('/manage-room')}
-            className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition-colors"
+            className="bg-[#78BCC4] text-white px-6 py-2 rounded-md hover:bg-[#F7444E] transition-colors"
           >
             Create or Join a Kitchen
           </button>
@@ -95,26 +95,20 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="bg-white">
-      {/* Navbar */}
-      <header className="bg-gray-800 text-white flex justify-between items-center p-4 w-full shadow-md fixed top-0 left-0 right-0 z-10">
-        {/* <h1 className="text-lg font-semibold">Kitchen Manager</h1> */}
+    <div className="bg-[#F7F8F3]">
+      <header className="bg-[#F7F8F3] text-[#002C3E] flex justify-between items-center p-4 w-full shadow-md fixed top-0 left-0 right-0 z-10">
         <div className="flex gap-6">
-          <button onClick={handleLeaveKitchen} className="bg-red-500 px-4 py-2 rounded-md hover:bg-red-600">Leave Kitchen</button>
-          <button onClick={() => { doSignOut().then(() => { navigate('/login') }) }} className="bg-gray-500 px-4 py-2 rounded-md hover:bg-gray-600">Logout</button>
+          <button onClick={handleLeaveKitchen} className="bg-[#F7444E] text-white px-4 py-2 rounded-md hover:bg-[#002C3E]">Leave Kitchen</button>
+          <button onClick={() => { doSignOut().then(() => { navigate('/login') }) }} className="bg-[#002C3E] text-white px-4 py-2 rounded-md hover:bg-[#F7444E]">Logout</button>
         </div>
       </header>
 
-      <div className="p-6 mt-16 flex flex-col gap-6 min-h-screen flex flex-col min-w-screen">
+      <div className="p-6 mt-16 flex flex-col gap-6 min-h-screen min-w-screen">
         <div className="flex flex-col bg-white rounded-lg shadow-md p-6 max-w-lg">
           <h1 className="text-3xl font-bold text-black">{kitchenData?.name || kitchenName}</h1>
           <p className="text-gray-600 mt-2">Kitchen ID: {roomId}</p>
           <p className="text-sm text-gray-500 mt-2 text-right">Logged in as {currentUser.displayName || currentUser.email}</p>
           <p className="text-sm text-gray-500 text-right">Your role: {role}</p>
-        {/* </div>
-
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold mb-4">Kitchen Members</h2> */}
           <div className="space-y-3 mt-6">
             {members.map(([username, data]) => (
               <div key={username} className="flex items-center text-black justify-between p-3 bg-gray-50 rounded-md">
@@ -131,9 +125,8 @@ const Dashboard = () => {
         </div>
 
         <div className="flex flex-wrap gap-4">
-          {/* <button onClick={() => navigate('/manage-room')} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Back to Kitchen Manager</button> */}
-          <button onClick={() => navigate('/calendar-page')} className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Calendar</button>
-          <button onClick={() => navigate('/cost-splitter')} className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600">Cost Splitter</button>
+          <button onClick={() => navigate('/calendar-page')} className="bg-[#78BCC4] text-white px-4 py-2 rounded-md hover:bg-[#F7444E]">Calendar</button>
+          <button onClick={() => navigate('/cost-splitter')} className="bg-[#002C3E] text-white px-4 py-2 rounded-md hover:bg-[#F7444E]">Cost Splitter</button>
         </div>
       </div>
     </div>
