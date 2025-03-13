@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ref, onValue, remove, get } from 'firebase/database';
 import { database } from '../../firebase/firebase';
 import { doSignOut } from '../../firebase/auth';
+import './button.css';
 
 const Dashboard = () => {
   const { currentUser } = useAuth();
@@ -83,10 +84,7 @@ const Dashboard = () => {
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-6">Welcome to Kitchen Manager</h1>
           <p className="text-xl mb-4">Hello {currentUser.displayName || currentUser.email}</p>
-          <button
-            onClick={() => navigate('/manage-room')}
-            className="bg-[#78BCC4] text-white px-6 py-2 rounded-md hover:bg-[#F7444E] transition-colors"
-          >
+          <button onClick={() => navigate('/manage-room')} className="btn-primary">
             Create or Join a Kitchen
           </button>
         </div>
@@ -98,8 +96,7 @@ const Dashboard = () => {
     <div className="bg-[#F7F8F3]">
       <header className="bg-[#F7F8F3] text-[#002C3E] flex justify-between items-center p-4 w-full shadow-md fixed top-0 left-0 right-0 z-10">
         <div className="flex gap-6">
-          <button onClick={handleLeaveKitchen} className="bg-[#F7444E] text-white px-4 py-2 rounded-md hover:bg-[#002C3E]">Leave Kitchen</button>
-          <button onClick={() => { doSignOut().then(() => { navigate('/login') }) }} className="bg-[#002C3E] text-white px-4 py-2 rounded-md hover:bg-[#F7444E]">Logout</button>
+          <button onClick={() => { doSignOut().then(() => { navigate('/login') }) }} className="btn-secondary">Logout</button>
         </div>
       </header>
 
@@ -122,11 +119,12 @@ const Dashboard = () => {
               </div>
             ))}
           </div>
+          <button onClick={handleLeaveKitchen} className="btn-danger mt-4">Leave Kitchen</button>
         </div>
 
         <div className="flex flex-wrap gap-4">
-          <button onClick={() => navigate('/calendar-page')} className="bg-[#78BCC4] text-white px-4 py-2 rounded-md hover:bg-[#F7444E]">Calendar</button>
-          <button onClick={() => navigate('/cost-splitter')} className="bg-[#002C3E] text-white px-4 py-2 rounded-md hover:bg-[#F7444E]">Cost Splitter</button>
+          <button onClick={() => navigate('/calendar-page')} className="btn-primary">Calendar</button>
+          <button onClick={() => navigate('/cost-splitter')} className="btn-secondary">Cost Splitter</button>
         </div>
       </div>
     </div>
