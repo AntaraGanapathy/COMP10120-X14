@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ref, onValue, remove, get } from 'firebase/database';
 import { database } from '../../firebase/firebase';
 import { doSignOut } from '../../firebase/auth';
-import './button.css';
+import '../styles/button.css';
 
 const Dashboard = () => {
   const { currentUser } = useAuth();
