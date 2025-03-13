@@ -96,6 +96,7 @@ const Dashboard = () => {
     <div className="bg-[#F7F8F3]">
       <header className="bg-[#F7F8F3] text-[#002C3E] flex justify-between items-center p-4 w-full shadow-md fixed top-0 left-0 right-0 z-10">
         <div className="flex gap-6">
+          <button onClick={handleLeaveKitchen} className="btn-danger">Leave Kitchen</button>
           <button onClick={() => { doSignOut().then(() => { navigate('/login') }) }} className="btn-secondary">Logout</button>
         </div>
       </header>
@@ -119,37 +120,11 @@ const Dashboard = () => {
               </div>
             ))}
           </div>
-          <button onClick={handleLeaveKitchen} className="btn-danger mt-4">Leave Kitchen</button>
         </div>
 
-      <div className="bg-white rounded-lg shadow-md p-6">
-        {/* <h2 className="text-xl font-semibold mb-4">Kitchen Actions</h2> */}
-        <div className="flex gap-4">
-          <button
-            onClick={() => navigate('/manage-room')}
-            className="bg-gray-200 px-4 py-2 rounded-md transition-colors"
-          >
-            Back to Kitchen Manager
-          </button>
-          <button
-            onClick={handleLeaveKitchen}
-            className="bg-gray-200 px-4 py-2 rounded-md transition-colors"
-          >
-            Leave Kitchen
-          </button>
-          <button onClick={() => { doSignOut().then(() => { navigate('/login') }) }} className='bg-gray-200 px-4 py-2 rounded-md transition-colors'>Logout</button>
-          <button
-                onClick={() => navigate('/calendar-page')}
-                className="bg-gray-200 px-4 py-2 rounded-md transition-colors"
-              >
-                Calendar
-              </button>
-              <button
-                onClick={() => navigate('/cost-splitter')}
-                className="bg-gray-200 px-4 py-2 rounded-md transition-colors"
-              >
-                Cost Splitter
-              </button>
+        <div className="flex flex-wrap gap-4">
+          <button onClick={() => navigate('/calendar-page')} className="btn-primary">Calendar</button>
+          <button onClick={() => navigate('/cost-splitter')} className="btn-secondary">Cost Splitter</button>
         </div>
       </div>
     </div>

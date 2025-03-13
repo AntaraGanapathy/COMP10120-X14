@@ -7,6 +7,7 @@ import Dashboard from './components/dashboard';
 import RoomManager from './components/RoomManager';
 import AddSplitterItem from './components/costSplitter/addSplitterItem';
 import CostSplitterMaster from './components/costSplitter/costSplitterMaster';
+import MyCalendar from './components/calendar';
 
 function AppRoutes() {
   const { currentUser } = useAuth();
@@ -30,7 +31,8 @@ function AppRoutes() {
     { path: "/register", element: <Register /> },
     { path: "/manage-room", element: <RoomManager /> },
     { path: "/add-item", element:<AddSplitterItem />},
-    { path: "/cost-splitter", element:<CostSplitterMaster />}
+    { path: "/cost-splitter", element:<CostSplitterMaster />},
+    { path: "/calendar-page", element:<MyCalendar />}
   ];
   
   return useRoutes(routesArray);
