@@ -6,7 +6,7 @@ import Register from "./components/auth/register";
 import Dashboard from './components/dashboard';
 import RoomManager from './components/RoomManager';
 import MyCalendar from './components/calendar';
-import Fridge from './components/FridgeList/list';
+import Fridge from './components/FridgeList/FridgeList';
 
 function AppRoutes() {
   const { currentUser } = useAuth();

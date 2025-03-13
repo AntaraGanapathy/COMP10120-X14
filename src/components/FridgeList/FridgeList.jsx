@@ -12,21 +12,18 @@ const Fridge = () => {
 
   useEffect(() => {
     if (!roomId) return;
-
-    const fridgeRef = ref(database, `rooms/${roomId}/fridge`);
-
-    onValue(fridgeRef, (snapshot) => {
+    const roomRef = ref(database, `rooms/${roomId}`);
+    const unsubscribe = onValue(roomRef, (snapshot) => {
       if (snapshot.exists()) {
-        const fridgeList = Object.entries(snapshot.val()).map(([id, data]) => ({
-          id,
-          ...data,
-        }));
+        const data = snapshot.val();
         setFridge(Object.entries(data.fridge || {}));
       } else {
         setFridge([]);
       }
     });
-  }, [roomId]);
+
+    return () => unsubscribe();
+  }, [roomId, navigate]);
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 p-6">
@@ -41,7 +38,7 @@ const Fridge = () => {
         </button>
       </div>
 
-      <div className="bg-white rounded-lg shadow-md p-6 w-full max-w-3xl">
+      <div className="bg-black rounded-lg shadow-md p-6 w-full max-w-3xl">
         <table className="w-full border-collapse border border-gray-300">
           <thead className="bg-gray-200">
             <tr>
@@ -51,23 +48,18 @@ const Fridge = () => {
             </tr>
           </thead>
           <tbody>
-            {costs.length > 0 ? (
-              fridge.map((itemName, data) => (
-                <tr key={itemName} className="border">
-                  <td className="border px-4 py-2">{data.num}</td>
-                  <td className="border px-4 py-2">{data.owner}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="4" className="text-center py-4 text-gray-500">
-                  No
-                </td>
+            {fridge.map((data) => (
+              <tr key={data.id} className="border">
+                <td className="border px-4 py-2">EGGGGGG</td>
+                <td className="border px-4 py-2">{data.owner}</td>
+                <td className="border px-4 py-2">5</td>
               </tr>
-            )}
+            ))}
           </tbody>
         </table>
       </div>
     </div>
   );
 };
+
+export default Fridge;
