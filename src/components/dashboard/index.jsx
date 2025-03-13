@@ -96,8 +96,7 @@ const Dashboard = () => {
     <div className="bg-[#F7F8F3]">
       <header className="bg-[#F7F8F3] text-[#002C3E] flex justify-between items-center p-4 w-full shadow-md fixed top-0 left-0 right-0 z-10">
         <div className="flex gap-6">
-          <button onClick={handleLeaveKitchen} className="btn-danger">Leave Kitchen</button>
-          <button onClick={() => { doSignOut().then(() => { navigate('/login') }) }} className="btn-secondary">Logout</button>
+          <button onClick={() => { doSignOut().then(() => { navigate('/login') }) }} className="btn-secondary mr-0">Logout</button>
         </div>
       </header>
 
@@ -120,6 +119,7 @@ const Dashboard = () => {
               </div>
             ))}
           </div>
+          <button onClick={handleLeaveKitchen} className="btn-danger">Leave Kitchen</button>
         </div>
 
         <div className="flex flex-wrap gap-4">
