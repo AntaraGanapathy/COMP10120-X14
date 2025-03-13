@@ -4,8 +4,9 @@ import { AuthProvider, useAuth } from "./contexts/authContext";
 import Login from "./components/auth/login";
 import Register from "./components/auth/register";
 import Dashboard from './components/dashboard';
-import RoomManager from './components/roommanager';
-import MyCalendar from './components/calendar';
+import RoomManager from './components/RoomManager';
+import AddSplitterItem from './components/costSplitter/addSplitterItem';
+import CostSplitterMaster from './components/costSplitter/costSplitterMaster';
 
 function AppRoutes() {
   const { currentUser } = useAuth();
@@ -28,7 +29,8 @@ function AppRoutes() {
     { path: "/dashboard", element: <Dashboard /> },
     { path: "/register", element: <Register /> },
     { path: "/manage-room", element: <RoomManager /> },
-    { path: "/calendar-page", element:<MyCalendar />}
+    { path: "/add-item", element:<AddSplitterItem />},
+    { path: "/cost-splitter", element:<CostSplitterMaster />}
   ];
   
   return useRoutes(routesArray);
