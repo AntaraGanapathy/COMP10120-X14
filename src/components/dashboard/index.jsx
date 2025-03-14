@@ -96,14 +96,14 @@ const Dashboard = () => {
     <div className="bg-[#F7F8F3]">
       <header className="bg-[#F7F8F3] text-[#002C3E] flex justify-between items-center p-4 w-full shadow-md fixed top-0 left-0 right-0 z-10">
         <div className="flex gap-6">
-          <button onClick={() => { doSignOut().then(() => { navigate('/login') }) }} className="btn-secondary mr-0">Logout</button>
+          <button onClick={() => { doSignOut().then(() => { navigate('/login') }) }} className="btn-primary mr-0">Logout</button>
         </div>
       </header>
 
       <div className="p-6 mt-16 flex flex-col gap-6 min-h-screen min-w-screen">
         <div className="flex flex-col bg-white rounded-lg shadow-md p-6 max-w-lg">
           <h1 className="text-3xl font-bold text-black">{kitchenData?.name || kitchenName}</h1>
-          <p className="text-gray-600 mt-2">Kitchen ID: {roomId}</p>
+          <p className="text-[#002C3E] mt-2">Kitchen ID: {roomId}</p>
           <p className="text-sm text-gray-500 mt-2 text-right">Logged in as {currentUser.displayName || currentUser.email}</p>
           <p className="text-sm text-gray-500 text-right">Your role: {role}</p>
           <div className="space-y-3 mt-6">
@@ -112,7 +112,7 @@ const Dashboard = () => {
                 <div>
                   <span className="font-medium">{username}</span>
                   {data.role === 'creator' && (
-                    <span className="ml-2 px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">Creator</span>
+                    <span className="ml-2 px-2 py-1 bg-[#78BCC4]/50 text-[#002C3E] text-xs rounded-full">Creator</span>
                   )}
                 </div>
                 <span className="text-sm text-gray-500">Joined: {new Date(data.timestamp).toLocaleDateString()}</span>
@@ -124,7 +124,7 @@ const Dashboard = () => {
 
         <div className="flex flex-wrap gap-4">
           <button onClick={() => navigate('/calendar-page')} className="btn-primary">Calendar</button>
-          <button onClick={() => navigate('/cost-splitter')} className="btn-secondary">Cost Splitter</button>
+          <button onClick={() => navigate('/cost-splitter')} className="btn-primary">Cost Splitter</button>
           <button onClick={() => navigate('/chat')} className="btn-primary">Chat</button>
         </div>
       </div>

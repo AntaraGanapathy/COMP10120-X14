@@ -1,37 +1,25 @@
 .btn-primary {
-    background-color: #78BCC4;
+    background-color: #002C3E;
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
-    border: none;
+    border: 2px solid #002C3E;
     cursor: pointer;
     transition: background-color 0.3s;
   }
   
   .btn-primary:hover {
-    background-color: #F7444E;
-  }
-  
-  .btn-secondary {
-    background-color: #002C3E;
-    color: white;
-    padding: 10px 20px;
+    border: 2px solid #F7444E;
     border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
   }
-  
-  .btn-secondary:hover {
-    background-color: #F7444E;
-  }
+
   
   .btn-danger {
     background-color: #F7444E;
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
-    border: none;
+    border: 2px solid #F7444E;
     cursor: pointer;
     transition: background-color 0.3s;
     width: 50%;
@@ -41,6 +29,7 @@
   }
   
   .btn-danger:hover {
-    background-color: #002C3E;
+    border: 2px solid #002C3E;
+    border-radius: 5px;
   }
   
