@@ -48,13 +48,15 @@ const Fridge = () => {
             </tr>
           </thead>
           <tbody>
-            {fridge.map((data) => (
-              <tr key={data.id} className="border">
-                <td className="border px-4 py-2">EGGGGGG</td>
-                <td className="border px-4 py-2">{data.owner}</td>
-                <td className="border px-4 py-2">5</td>
-              </tr>
-            ))}
+          {fridge.map(([itemname, data]) => (
+            <tr key={itemname} className="border">
+              <td className="border px-4 py-2">{itemname}</td>
+              <td className="border px-4 py-2">{data.owner}</td>
+              <td className="border px-4 py-2">
+                {data.num}{data.unit}
+              </td>
+            </tr>
+          ))}
           </tbody>
         </table>
       </div>
