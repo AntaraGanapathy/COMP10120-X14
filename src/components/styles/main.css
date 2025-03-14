@@ -1,0 +1,48 @@
+.btn-primary {
+  background-color: #002C3E;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 2px solid #002C3E;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  border: 2px solid #F7444E;
+  border-radius: 5px;
+}
+
+.btn-danger {
+  background-color: #F7444E;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 2px solid #F7444E;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 50%;
+  margin: 0 auto;
+  display: block;
+  margin-top: 20px;
+}
+
+.btn-danger:hover {
+  border: 2px solid #002C3E;
+  border-radius: 5px;
+}
+
+.link {
+  display: block;
+  padding: 8px 12px;  
+  color: white;
+  border-radius: 4px;  
+  text-decoration: none;
+}
+
+@media (min-width: 768px) {  
+  .link {
+    background-color: transparent;  
+    padding: 0;  
+  }
+}

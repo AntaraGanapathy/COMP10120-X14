@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ref, onValue, remove, get } from 'firebase/database';
 import { database } from '../../firebase/firebase';
 import { doSignOut } from '../../firebase/auth';
-import '../styles/button.css';
+import '../styles/main.css';
 
 const Dashboard = () => {
   const { currentUser } = useAuth();
@@ -94,13 +94,38 @@ const Dashboard = () => {
 
   return (
     <div className="bg-[#F7F8F3]">
-      <header className="bg-[#F7F8F3] text-[#002C3E] flex justify-between items-center p-4 w-full shadow-md fixed top-0 left-0 right-0 z-10">
-        <div className="flex gap-6">
-          <button onClick={() => { doSignOut().then(() => { navigate('/login') }) }} className="btn-primary mr-0">Logout</button>
-        </div>
-      </header>
+      
 
-      <div className="p-6 mt-16 flex flex-col gap-6 min-h-screen min-w-screen">
+      <nav className="bg-[#002C3E] d fixed w-full z-20 top-0 start-0">
+        <div className="bg-[#002C3E] max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+          <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
+              <img src="./logo.png" className="h-8" alt="Logo"></img>
+              <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Dish-it-Out</span>
+          </a>
+          <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+              <button type="button" className="btn-primary hover:text-[#F7444E]">Get started</button>
+          </div>
+          <div className="items-center justify-between bg-[#002C3E] hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+            <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium rounded-lg bg-[#002C3E] md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 ">
+              <li>
+                <a href="#" className="link" aria-current="page">Home</a>
+              </li>
+              <li>
+                <a href="#" className="link">About</a>
+              </li>
+              <li>
+                <a href="#" className="link">Services</a>
+              </li>
+              <li>
+                <a href="#" className="link">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+
+      <div className="pl-20 pt-10 mt-16 flex flex-col gap-6 min-h-screen min-w-screen">
         <div className="flex flex-col bg-white rounded-lg shadow-md p-6 max-w-lg">
           <h1 className="text-3xl font-bold text-black">{kitchenData?.name || kitchenName}</h1>
           <p className="text-[#002C3E] mt-2">Kitchen ID: {roomId}</p>
@@ -112,7 +137,7 @@ const Dashboard = () => {
                 <div>
                   <span className="font-medium">{username}</span>
                   {data.role === 'creator' && (
-                    <span className="ml-2 px-2 py-1 bg-[#78BCC4]/50 text-[#002C3E] text-xs rounded-full">Creator</span>
+                    <span className="ml-4 px-2 py-1 bg-[#78BCC4]/50 text-[#002C3E] text-xs rounded-full">Creator</span>
                   )}
                 </div>
                 <span className="text-sm text-gray-500">Joined: {new Date(data.timestamp).toLocaleDateString()}</span>
