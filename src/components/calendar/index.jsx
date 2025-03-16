@@ -4,11 +4,13 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { ref, get, update } from "firebase/database";
 import { database } from "../../firebase/firebase";
+import { useNavigate } from "react-router-dom";
 
 // Use Moment.js for localizing the calendar
 const localizer = momentLocalizer(moment);
 
 const MyCalendar = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState([]);
   const [view, setView] = useState("week");
@@ -160,6 +162,17 @@ const MyCalendar = () => {
 
   return (
     <section className="relative bg-stone-50 h-screen w-screen overflow-hidden">
+      {/* Back button */}
+      <button 
+        onClick={() => navigate('/dashboard')}
+        className="absolute top-4 left-6 z-20 px-4 py-2 text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-2 rounded-lg hover:bg-indigo-50 transition-all duration-300"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Dashboard
+      </button>
+
       {/* Decorative blobs */}
       <div className="bg-sky-400 w-full sm:w-40 h-40 rounded-full absolute top-1 opacity-20 max-sm:right-0 sm:left-56 z-0"></div>
       <div className="bg-emerald-500 w-full sm:w-40 h-24 absolute top-0 -left-0 opacity-20 z-0"></div>
@@ -170,53 +183,55 @@ const MyCalendar = () => {
           <div className="grid grid-cols-12 gap-4 h-full">
             {/* Upcoming Events - collapsed on smaller screens */}
             <div className="col-span-12 lg:col-span-3 h-full overflow-auto py-4 hidden lg:block">
-              <h2 className="font-manrope text-2xl leading-tight text-gray-900 mb-1">Upcoming Events</h2>
-              <p className="text-sm font-normal text-gray-600 mb-4">Don't miss schedule</p>
-              
-              <div className="flex gap-3 flex-col pr-2">
-                {events.slice(0, 5).map((event, index) => {
-                  // Generate a consistent color for each event
-                  const colors = ["purple", "sky", "emerald", "indigo", "rose"];
-                  const color = colors[index % colors.length];
-                  
-                  return (
-                    <div key={index} className="p-4 rounded-xl bg-white shadow-sm">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-2">
-                          <span className={`w-2.5 h-2.5 rounded-full bg-${color}-600`}></span>
-                          <p className="text-sm font-medium text-gray-900 truncate">
-                            {moment(event.start).format("MMM D - HH:mm")}
-                          </p>
-                        </div>
-                        <button 
-                          className={`p-1 text-gray-400 hover:text-${color}-600 rounded-full transition-all duration-300`}
-                          onClick={() => {
-                            const confirm = window.confirm(`Delete event "${event.title}"?`);
-                            if (confirm) {
-                              setEvents(events.filter((_, i) => i !== index));
-                            }
-                          }}
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="4" viewBox="0 0 12 4" fill="none">
-                            <path d="M1.85624 2.00085H1.81458M6.0343 2.00085H5.99263M10.2124 2.00085H10.1707" stroke="currentcolor" strokeWidth="2.5" strokeLinecap="round"></path>
-                          </svg>
-                        </button>
-                      </div>
-                      <h6 className="text-base leading-6 font-semibold text-black mb-1 truncate">{event.title}</h6>
-                      <p className="text-xs font-normal text-gray-600">
-                        {moment(event.end).diff(moment(event.start), 'minutes')} min
-                      </p>
-                      <p className="text-xs font-normal text-gray-600">User: {event.username}</p>
-                    </div>
-                  );
-                })}
+              <div className="mt-12">
+                <h2 className="font-manrope text-2xl leading-tight text-gray-900 mb-1">Upcoming Events</h2>
+                <p className="text-sm font-normal text-gray-600 mb-4">Don't miss schedule</p>
                 
-                {events.length === 0 && (
-                  <div className="p-4 rounded-xl bg-white text-center shadow-sm">
-                    <p className="text-gray-500">No upcoming events</p>
-                    <p className="text-xs text-gray-400 mt-2">Click on the calendar to add events</p>
-                  </div>
-                )}
+                <div className="flex gap-3 flex-col pr-2">
+                  {events.slice(0, 5).map((event, index) => {
+                    // Generate a consistent color for each event
+                    const colors = ["purple", "sky", "emerald", "indigo", "rose"];
+                    const color = colors[index % colors.length];
+                    
+                    return (
+                      <div key={index} className="p-4 rounded-xl bg-white shadow-sm">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <span className={`w-2.5 h-2.5 rounded-full bg-${color}-600`}></span>
+                            <p className="text-sm font-medium text-gray-900 truncate">
+                              {moment(event.start).format("MMM D - HH:mm")}
+                            </p>
+                          </div>
+                          <button 
+                            className={`p-1 text-gray-400 hover:text-${color}-600 rounded-full transition-all duration-300`}
+                            onClick={() => {
+                              const confirm = window.confirm(`Delete event "${event.title}"?`);
+                              if (confirm) {
+                                setEvents(events.filter((_, i) => i !== index));
+                              }
+                            }}
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="4" viewBox="0 0 12 4" fill="none">
+                              <path d="M1.85624 2.00085H1.81458M6.0343 2.00085H5.99263M10.2124 2.00085H10.1707" stroke="currentcolor" strokeWidth="2.5" strokeLinecap="round"></path>
+                            </svg>
+                          </button>
+                        </div>
+                        <h6 className="text-base leading-6 font-semibold text-black mb-1 truncate">{event.title}</h6>
+                        <p className="text-xs font-normal text-gray-600">
+                          {moment(event.end).diff(moment(event.start), 'minutes')} min
+                        </p>
+                        <p className="text-xs font-normal text-gray-600">User: {event.username}</p>
+                      </div>
+                    );
+                  })}
+                  
+                  {events.length === 0 && (
+                    <div className="p-4 rounded-xl bg-white text-center shadow-sm">
+                      <p className="text-gray-500">No upcoming events</p>
+                      <p className="text-xs text-gray-400 mt-2">Click on the calendar to add events</p>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
             
