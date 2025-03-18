@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../contexts/authContext';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { ref, onValue, remove, get } from 'firebase/database';
 import { database } from '../../firebase/firebase';
 import { doSignOut } from '../../firebase/auth';
+import { logo } from "../../assets";
 import '../styles/main.css';
 
 const Dashboard = () => {
@@ -94,35 +95,33 @@ const Dashboard = () => {
 
   return (
     <div className="bg-[#F7F8F3]">
-      
-
       <nav className="bg-[#002C3E] d fixed w-full z-20 top-0 start-0">
-        <div className="bg-[#002C3E] max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
-              <img src="./logo.png" className="h-8" alt="Logo"></img>
-              <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Dish-it-Out</span>
-          </a>
-          <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-              <button type="button" className="btn-primary hover:text-[#F7444E]">Get started</button>
-          </div>
-          <div className="items-center justify-between bg-[#002C3E] hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-            <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium rounded-lg bg-[#002C3E] md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 ">
-              <li>
-                <a href="#" className="link" aria-current="page">Home</a>
-              </li>
-              <li>
-                <a href="#" className="link">About</a>
-              </li>
-              <li>
-                <a href="#" className="link">Services</a>
-              </li>
-              <li>
-                <a href="#" className="link">Contact</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+         <div className="bg-[#002C3E] max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+           <Link to={'/dashboard'} className="flex items-center space-x-3 rtl:space-x-reverse">
+               <img src={logo} className="h-8" alt="Logo"></img>
+               <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Dish-it-Out</span>
+           </Link>
+           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+               <button type="button" onClick={() => { doSignOut().then(() => { navigate('/login') }) }} className="btn-primary hover:text-[#F7444E]">Logout</button>
+           </div>
+           {/* <div className="items-center justify-between bg-[#002C3E] hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+             <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium rounded-lg bg-[#002C3E] md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 ">
+               <li>
+                 <a href="#" className="link" aria-current="page">Home</a>
+               </li>
+               <li>
+                 <a href="#" className="link">About</a>
+               </li>
+               <li>
+                 <a href="#" className="link">Services</a>
+               </li>
+               <li>
+                 <a href="#" className="link">Contact</a>
+               </li>
+             </ul>
+           </div> */}
+         </div>
+       </nav>
 
 
       <div className="pl-20 pt-10 mt-16 flex flex-col gap-6 min-h-screen min-w-screen">
