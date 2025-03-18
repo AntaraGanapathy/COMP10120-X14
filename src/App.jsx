@@ -9,6 +9,7 @@ import AddSplitterItem from './components/costSplitter/addSplitterItem';
 import CostSplitterMaster from './components/costSplitter/costSplitterMaster';
 import MyCalendar from './components/calendar';
 import Chat from './components/chat/Chat';
+import Chatbot from './components/chatbot/chatbot';
 
 function AppRoutes() {
   const { currentUser } = useAuth();
@@ -34,7 +35,8 @@ function AppRoutes() {
     { path: "/add-item", element: <AddSplitterItem /> },
     { path: "/cost-splitter", element: <CostSplitterMaster /> },
     { path: "/calendar-page", element: <MyCalendar /> },
-    { path: "/chat", element: <Chat /> }
+    { path: "/chat", element: <Chat /> },
+    { path: "/chatbot", element: <Chatbot />}
   ];
   
   return useRoutes(routesArray);
