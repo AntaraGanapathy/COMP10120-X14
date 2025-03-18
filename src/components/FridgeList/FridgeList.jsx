@@ -67,8 +67,6 @@ const Fridge = () => {
             >
               Add New Fridge Item
             </button>
-          {/* </div>
-          <div className="text-center mb-5"> */}
           </div>
   
           <div className="bg-white rounded-lg shadow-md p-6 w-full max-w-3xl text-black">
@@ -85,7 +83,7 @@ const Fridge = () => {
                   fridge.map(([itemname, data]) => (
                     <tr key={itemname} className="border">
                       <td className="border px-4 py-2">{itemname}</td>
-                      <td className="border px-4 py-2">{data.num}{data.unit}</td>
+                      <td className="border px-4 py-2">{data.num} {data.unit}</td>
                       <td className="border px-4 py-2">{data.owner}</td>
                     </tr>
                   ))
@@ -105,14 +103,3 @@ const Fridge = () => {
   };
 
 export default Fridge;
-
-
-/*{fridge.map(([itemname, data]) => (
-            <tr key={itemname} className="border">
-              <td className="border px-4 py-2">{itemname}</td>
-              <td className="border px-4 py-2">{data.owner}</td>
-              <td className="border px-4 py-2">
-                {data.num}{data.unit}
-              </td>
-            </tr>
-          ))}*/
