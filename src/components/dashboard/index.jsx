@@ -149,7 +149,7 @@ const Dashboard = () => {
         <div className="flex flex-wrap gap-4">
           <button onClick={() => navigate('/calendar-page')} className="btn-primary">Calendar</button>
           <button onClick={() => navigate('/cost-splitter')} className="btn-primary">Cost Splitter</button>
-          <button onClick={() => navigate('/chat')} className="btn-primary">Chat</button>
+          <button onClick={() => navigate('/chat', { state: session })} className="btn-primary">Chat</button>
         </div>
       </div>
     </div>

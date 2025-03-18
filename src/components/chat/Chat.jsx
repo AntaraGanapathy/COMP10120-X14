@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { database } from '../../firebase/firebase';
 import { ref, push, onValue } from 'firebase/database';
 import { useAuth } from '../../contexts/authContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './chat.css';
 
 const Chat = () => {
@@ -17,6 +17,7 @@ const Chat = () => {
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -27,7 +28,9 @@ const Chat = () => {
   }, [messages]);
 
   useEffect(() => {
-    const session = JSON.parse(localStorage.getItem('kitchenSession'));
+    const storedSession = JSON.parse(localStorage.getItem('kitchenSession'));
+    const session = location.state || storedSession;
+    
     if (!session?.roomId) {
       navigate('/');
       return;
@@ -71,7 +74,7 @@ const Chat = () => {
 
     // Focus input when changing chats
     inputRef.current?.focus();
-  }, [activeChat, navigate]);
+  }, [activeChat, navigate, location]);
 
   const getChatId = (user1, user2) => {
     return [user1, user2].sort().join('_');
