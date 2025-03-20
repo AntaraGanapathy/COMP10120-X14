@@ -150,9 +150,9 @@ const AddSplitterItem = () => {
                 required
               />
             </div>
-            <div>
+            <div className="text-left">
               <label className="block font-medium text-black">Payer</label>
-              <div className="border rounded-md p-2">
+              <div className="border rounded-md p-2 text-left">
                 {kitchenMembers.map((member) => (
                   <div key={member} className="flex items-center">
                     <input
@@ -182,7 +182,7 @@ const AddSplitterItem = () => {
                       onChange={() => handleCheckboxChange(member)}
                       disabled={member === payer}  
                     />
-                    <label htmlFor={`owe-${member}`} className="ml-2 text-black">
+                    <label htmlFor={`owe-${member}`} className={payer === member ? "payer-selected ml-2 text-black" : " ml-2 text-black"}>
                       {member}
                     </label>
                   </div>

@@ -40,108 +40,98 @@
 	text-decoration: none;
 }
 
-input[type=radio],
-input[type=checkbox] {
-	-webkit-appearance: none;
+/* Ensure Radio Buttons and Checkboxes are Small */
+input[type="radio"],
+input[type="checkbox"] {
 	appearance: none;
-	background: #fff;
-	/* this is needed for iOS. Otherwise the background just becomes black. */
-	border: 1px solid #333;
-	height: 1.5em;
-	margin-top: 4px;
-	width: 1.5em;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: white;
+	border: 2px solid #333;
+	width: 18px; /* Set fixed size */
+	height: 18px;
 	display: inline-block;
-	border-radius: 100%;
-	vertical-align: text-bottom;
 	position: relative;
-	text-align: left;
-
-	&[disabled],
-	&[aria-disabled=true] {
-		opacity: .4;
-	}
-
-	&::before {
-		content: '';
-		position: absolute;
-		margin: auto;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		overflow: hidden;
-		top: 0;
-	}
-
-	&:focus {
-		outline: 2px solid;
-		outline-offset: 2px;
-	}
+	cursor: pointer;
+	vertical-align: middle;
+	margin-right: 8px;
 }
 
-input[type=checkbox] {
-	border-radius: 10%;
+/* Properly Align Labels
+.flex.items-center {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+} */
+
+/* Radio Button Styling */
+input[type="radio"] {
+	border-radius: 50%;
 }
 
-input[type=radio]::before {
-	height: 0;
-	width: 0;
+input[type="radio"]:checked::before {
+	content: '';
+	display: block;
+	width: 10px;
+	height: 10px;
+	background: black;
+	border-radius: 50%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
-input[type=radio]:checked::before {
-	border: 5px solid transparent;
-	border-radius: 100%;
-	outline-offset: -6px;
-	background: #000;
+/* Checkbox Styling */
+input[type="checkbox"] {
+	border-radius: 4px;
 }
 
-input[type=checkbox]:indeterminate::before,
-input[type=checkbox][aria-checked=mixed]::before {
-	border: 2px solid #222;
-	height: 0;
-	width: 40%;
+input[type="checkbox"]:checked::before {
+	content: '\2713'; /* Unicode checkmark */
+	font-size: 12px;
+	color: black;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
 }
 
-input[type=checkbox]:checked::before {
-	border-right: 3px solid #000;
-	border-bottom: 3px solid #000;
-	height: 50%;
-	width: 30%;
-	transform: rotate(45deg) translateY(-20%) translateX(-10%);
+/* Ensure Proper Label Positioning */
+label {
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+	margin-left: 4px; /* Adjust spacing */
 }
 
+/* Fix Width Issue */
+input[type="radio"],
+input[type="checkbox"] {
+	max-width: 18px; /* Prevent oversizing */
+}
+
+/* Prevent Stretching */
+/* .flex {
+	display: flex;
+	align-items: center;
+	gap: 10px; 
+} */
+
+/* Strike-through effect for People Who Owe when selected as Payer */
+.payer-selected {
+	text-decoration: line-through;
+	color: gray;
+	opacity: 0.6;
+	pointer-events: none; /* Prevent clicking */
+}
 
 @media screen and (prefers-color-scheme: dark) {
 	body {
 		background: #111;
 		color: #efefef;
-	}
-
-	input[type=radio],
-	input[type=checkbox] {
-		background: #0a0a0a;
-		border-color: #fff;
-	}
-
-	input[type=radio] {
-		&:checked {
-			&::before {
-				background: lightblue;
-			}
-		}
-	}
-
-	input[type=checkbox]:checked::before,
-	input[type=checkbox]:indeterminate::before,
-	input[type=checkbox][aria-checked=mixed]::before {
-		border-right-color: #fff;
-		border-bottom-color: #fff;
-	}
-
-	input[type=radio],
-	input[type=checkbox] {
-		&:focus {
-			outline-color: #fff;
-		}
 	}
 }
 
