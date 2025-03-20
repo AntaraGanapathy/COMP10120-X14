@@ -1,64 +1,66 @@
 .btn-primary {
-  background-color: #002C3E;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: 2px solid #002C3E;
-  cursor: pointer;
-  transition: background-color 0.3s;
+	background-color: #002C3E;
+	color: white;
+	padding: 10px 20px;
+	border-radius: 5px;
+	border: 2px solid #002C3E;
+	cursor: pointer;
+	transition: background-color 0.3s;
 }
 
 .btn-primary:hover {
-  border: 2px solid #F7444E;
-  border-radius: 5px;
+	border: 2px solid #F7444E;
+	border-radius: 5px;
 }
 
 .btn-danger {
-  background-color: #F7444E;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: 2px solid #F7444E;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  width: 50%;
-  margin: 0 auto;
-  display: block;
-  margin-top: 20px;
+	background-color: #F7444E;
+	color: white;
+	padding: 10px 20px;
+	border-radius: 5px;
+	border: 2px solid #F7444E;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	width: 50%;
+	margin: 0 auto;
+	display: block;
+	margin-top: 20px;
 }
 
 .btn-danger:hover {
-  border: 2px solid #002C3E;
-  border-radius: 5px;
+	border: 2px solid #002C3E;
+	border-radius: 5px;
 }
 
 .link {
-  display: block;
-  padding: 8px 12px;  
-  color: white;
-  border-radius: 4px;  
-  text-decoration: none;
+	display: block;
+	padding: 8px 12px;
+	color: white;
+	border-radius: 4px;
+	text-decoration: none;
 }
 
 input[type=radio],
 input[type=checkbox] {
 	-webkit-appearance: none;
 	appearance: none;
-	background: #fff; /* this is needed for iOS. Otherwise the background just becomes black. */
+	background: #fff;
+	/* this is needed for iOS. Otherwise the background just becomes black. */
 	border: 1px solid #333;
 	height: 1.5em;
-  margin-top: 4px;
+	margin-top: 4px;
 	width: 1.5em;
 	display: inline-block;
 	border-radius: 100%;
 	vertical-align: text-bottom;
 	position: relative;
-	
+	text-align: left;
+
 	&[disabled],
 	&[aria-disabled=true] {
 		opacity: .4;
 	}
-	
+
 	&::before {
 		content: '';
 		position: absolute;
@@ -69,7 +71,7 @@ input[type=checkbox] {
 		overflow: hidden;
 		top: 0;
 	}
-	
+
 	&:focus {
 		outline: 2px solid;
 		outline-offset: 2px;
@@ -82,9 +84,9 @@ input[type=checkbox] {
 
 input[type=radio]::before {
 	height: 0;
- width: 0;
+	width: 0;
 }
-	
+
 input[type=radio]:checked::before {
 	border: 5px solid transparent;
 	border-radius: 100%;
@@ -108,44 +110,44 @@ input[type=checkbox]:checked::before {
 }
 
 
-@media screen and ( prefers-color-scheme: dark ) {
+@media screen and (prefers-color-scheme: dark) {
 	body {
 		background: #111;
 		color: #efefef;
 	}
-	
+
 	input[type=radio],
-	input[type=checkbox]{
+	input[type=checkbox] {
 		background: #0a0a0a;
 		border-color: #fff;
 	}
-	
- input[type=radio] {
+
+	input[type=radio] {
 		&:checked {
-		 &::before {
-			 background: lightblue;
-		 }
-	 }
+			&::before {
+				background: lightblue;
+			}
+		}
 	}
-	
+
 	input[type=checkbox]:checked::before,
 	input[type=checkbox]:indeterminate::before,
-	input[type=checkbox][aria-checked=mixed]::before{
-	  border-right-color: #fff;
-	  border-bottom-color: #fff;
+	input[type=checkbox][aria-checked=mixed]::before {
+		border-right-color: #fff;
+		border-bottom-color: #fff;
 	}
-	
+
 	input[type=radio],
 	input[type=checkbox] {
 		&:focus {
 			outline-color: #fff;
 		}
- }
+	}
 }
 
-@media (min-width: 768px) {  
-  .link {
-    background-color: transparent;  
-    padding: 0;  
-  }
+@media (min-width: 768px) {
+	.link {
+		background-color: transparent;
+		padding: 0;
+	}
 }
