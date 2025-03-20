@@ -2,68 +2,81 @@ import React, { useState } from "react";
 import axios from "axios";
 import './chatbot.css';
 
-const Chatbot = () => {
-  const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
+
+const Chatbot = async (inputText) => {
+  // const [messages, setMessages] = useState([]);
+  // const [input, setInput] = useState("");
+  // const [loading, setLoading] = useState(false);
 
   const API_URL = "https://openrouter.ai/api/v1/chat/completions";
-  const API_KEY = "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"; 
+  const API_KEY = "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"; 
 
-  const sendMessage = async () => {
-    if (!input.trim()) return;
+  console.log("Chatbot function called with input:", inputText); 
 
-    const newMessages = [...messages, { text: input, sender: "user" }];
-    setMessages(newMessages);
-    setInput("");
-    setLoading(true);
+  // if (!inputText.trim()) return;
 
-    try {
-      const response = await axios.post(
-        API_URL,
-        {
-          model: "deepseek/deepseek-r1-zero:free", 
-          messages: [{ role: "user", content: input }],
+  // const newMessages = [...messages, { text: input, sender: "user" }];
+  // setMessages(newMessages);
+  // setInput("");
+  // setLoading(true);
+
+  let cleanText = "No Response";
+
+  try {
+    console.log("Sending request to API...");
+    const response = await axios.post(
+      API_URL,
+      {
+        model: "undi95/toppy-m-7b:free", 
+        messages: [
+          {role: "system", content:"You are chatbot that helps people find recipes and you never respond with code, respond in simple words without any LaTeX formatting and don't use curly braces in your output"},
+          {role: "user", content: inputText }           
+        ],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${API_KEY}`,
+          "Content-Type": "application/json",
         },
-        {
-          headers: {
-            Authorization: `Bearer ${API_KEY}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      const botReply = response.data.choices[0]?.message?.content || "No response";
-      setMessages([...newMessages, { text: botReply, sender: "bot" }]);
-    } catch (error) {
-      console.error("Error:", error);
-      setMessages([...newMessages, { text: "Error fetching response", sender: "bot" }]);
-    } finally {
-        setLoading(false)
+      }
+    );
+    //console.log(response.data.choices[0])
+    const botReply = response.data.choices[0]?.message?.content || "No response";
+    cleanText = botReply.replace(/\\[a-zA-Z]+{(.*?)}/g, "$1").replace(/\\[a-zA-Z]+/g, "");
+    // console.log("Cleaned Response:", cleanText); // Log the final clean response
+    //setMessages([...newMessages, { text: cleanText, sender: "bot" }]);
+  } catch (error) {
+    console.error("Error:", error);
+    if (error.response) {
+      console.error("Error Response:", error.response.data)
+      console.error("Error Status", error.response.status)
     }
-  };
+    // setMessages([...newMessages, { text: "Error fetching response", sender: "bot" }]);
+  } 
 
-  return (
-    <div className="chat-container">
-      <div className="chat-box">
-        {messages.map((msg, index) => (
-          <div key={index} className={`message ${msg.sender}`}>
-            {msg.text}
-          </div>
-        ))}
-        {loading && <div className="message bot"> Typing ... </div>}
-      </div>
-      <div className="input-container">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Type a message..."
-        />
-        <button onClick={sendMessage}>Send</button>
-      </div>
-    </div>
-  );
+  return cleanText;
+
+  // return (
+  //   <div className="chat-container">
+  //     <div className="chat-box">
+  //       {messages.map((msg, index) => (
+  //         <div key={index} className={`message ${msg.sender}`}>
+  //           {msg.text}
+  //         </div>
+  //       ))}
+  //       {loading && <div className="message bot"> Typing ... </div>}
+  //     </div>
+  //     <div className="input-container">
+  //       <input
+  //         type="text"
+  //         value={input}
+  //         onChange={(e) => setInput(e.target.value)}
+  //         placeholder="Type a message..."
+  //       />
+  //       <button onClick={sendMessage}>Send</button>
+  //     </div>
+  //   </div>
+  // );
 };
 
 export default Chatbot;

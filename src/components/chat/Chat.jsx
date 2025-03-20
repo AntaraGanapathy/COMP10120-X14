@@ -4,6 +4,7 @@ import { ref, push, onValue } from 'firebase/database';
 import { useAuth } from '../../contexts/authContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './chat.css';
+import Chatbot from '../chatbot/chatbot';
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -49,7 +50,7 @@ const Chat = () => {
         const usersList = Object.keys(usersData)
           .filter(name => name !== session.userName)
           .sort((a, b) => a.localeCompare(b)); // Sort alphabetically
-        setUsers(usersList);
+        setUsers([...usersList, "ChatBot"]);
       }
     });
 
@@ -80,7 +81,7 @@ const Chat = () => {
     return [user1, user2].sort().join('_');
   };
 
-  const sendMessage = (e) => {
+  const sendMessage = async (e) => {
     e.preventDefault();
     const text = newMessage.trim();
     if (!text || !currentKitchenName || !roomId) return;
@@ -96,7 +97,31 @@ const Chat = () => {
     } else {
       const chatId = getChatId(currentKitchenName, activeChat);
       push(ref(database, `rooms/${roomId}/privateChats/${chatId}`), messageData);
+
+      if (activeChat === "ChatBot") {
+        // console.log(messageData)
+        // console.log("Calling bot")        
+        const chatbotResponse = await Chatbot(messageData.text);
+
+        console.log("Chatbot Response", chatbotResponse)
+
+        const botData = {
+          text: chatbotResponse,
+          sender: "ChatBot",
+          timestamp: Date.now()
+        }
+
+        push(ref(database, `rooms/${roomId}/privateChats/${chatId}`), botData)
+
+        // setMessages((prevMessages) => [
+        //   ...prevMessages,
+        //   { id: Date.now().toString(), ...botData } 
+        // ]);
+        
+        console.log(chatbotResponse)
+      }
     }
+   
 
     setNewMessage('');
     inputRef.current?.focus();
