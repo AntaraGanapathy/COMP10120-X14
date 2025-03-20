@@ -5,17 +5,12 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { logo } from "../../assets";
 import '../styles/main.css';
 
-/*
-cost -> number
-payer -> owner
-owner -> unit
-*/
 
 const AddFridge = () => {
   const [itemName, setItemName] = useState("");
   const [number, setNumber] = useState("");
-  const [payer, setPayer] = useState("");
-  const [peopleWhoOwe, setPeopleWhoOwe] = useState([]);
+  const [owner, setOwner] = useState("");
+  const [unit, setUnit] = useState([]);
   const [kitchenMembers, setKitchenMembers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -41,21 +36,8 @@ const AddFridge = () => {
     fetchKitchenData();
   }, []);
 
-  const handleCheckboxChange = (member) => {
-    if (member !== payer) {
-      setPeopleWhoOwe((prev) =>
-        prev.includes(member) ? prev.filter((m) => m !== member) : [...prev, member]
-      );
-    }
-  };
-
-  const handlePayerChange = (member) => {
-    setPayer(member);
-    setPeopleWhoOwe((prev) => prev.filter((m) => m !== member));  
-  };
-
   const validateForm = () => {
-    if (!itemName || !number || !payer || peopleWhoOwe.length === 0) {
+    if (!itemName || !number || !owner || unit.length === 0) {
       setError("All fields must be filled, and at least one person must owe.");
       return false;
     }
@@ -73,21 +55,19 @@ const AddFridge = () => {
       return;
     }
 
-    const fridgeData = {
-      itemName,
-      number,
-      peopleWhoOwe,
-      cost: parseFloat(cost),  
-    };
-
     try {
-      await push(ref(database, `rooms/${sessionData.roomId}/fridge`),fridgetData);
+      await push(ref(database, `rooms/${sessionData.roomId}/fridge`), {
+        itemName, 
+        number, 
+        unit, 
+        owner
+      });
       console.log("fridge item successfully added");
 
       setItemName("");
       setNumber("");
-      setPayer("");
-      setPeopleWhoOwe([]);
+      setOwner("");
+      setUnit([]);
 
       navigate("/fridge-list");
     } catch (error) {
@@ -145,44 +125,35 @@ const AddFridge = () => {
               <input
                 type="number"
                 value={number}
-                onChange={(e) => setCost(e.target.value)}
+                onChange={(e) => setNumber(e.target.value)}
                 className="w-full p-2 border rounded-md text-black"
                 required
               />
             </div>
             <div>
-              <label className="block font-medium text-black">Payer</label>
+              <label className="block font-medium text-black">Unit</label>
+              <input
+                type="text"
+                value={unit}
+                onChange={(e) => setUnit(e.target.value)}
+                className="w-full p-2 border rounded-md text-black"
+                required
+              />
+            </div>
+            <div>
+              <label className="block font-medium text-black">Owner</label>
               <div className="border rounded-md p-2">
                 {kitchenMembers.map((member) => (
                   <div key={member} className="flex items-center">
                     <input
                       type="radio"
-                      name="payer"
-                      id={`payer-${member}`}
-                      checked={payer === member}
-                      onChange={() => handlePayerChange(member)}
+                      name="owner"
+                      id={`owner-${member}`}
+                      checked={owner === member}
+                      onChange={() => setOwner(member)}
                       // className="radio-btn"
                     />
-                    <label htmlFor={`payer-${member}`} className="ml-2 text-black">
-                      {member}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div>
-              <label className="block font-medium text-black">People Who Owe</label>
-              <div className="border rounded-md p-2">
-                {kitchenMembers.map((member) => (
-                  <div key={member} className="flex items-center">
-                    <input
-                      type="checkbox"
-                      id={`owe-${member}`}
-                      checked={peopleWhoOwe.includes(member)}
-                      onChange={() => handleCheckboxChange(member)}
-                      disabled={member === payer}  
-                    />
-                    <label htmlFor={`owe-${member}`} className="ml-2 text-black">
+                    <label htmlFor={`owner-${member}`} className="ml-2 text-black">
                       {member}
                     </label>
                   </div>
@@ -194,7 +165,7 @@ const AddFridge = () => {
               className="btn-primary w-full"
             >
               Submit
-            </button>
+            </button> 
           </form>
         </div>
       </div>

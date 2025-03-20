@@ -14,11 +14,18 @@ const Fridge = () => {
 
   useEffect(() => {
     if (!roomId) return;
-    const roomRef = ref(database, `rooms/${roomId}`);
-    const unsubscribe = onValue(roomRef, (snapshot) => {
+
+    const fridgeRef = ref(database, `rooms/${roomId}/fridge`);
+
+    const unsubscribe = onValue(fridgeRef, (snapshot) => {
       if (snapshot.exists()) {
-        const data = snapshot.val();
-        setFridge(Object.entries(data.fridge || {}));
+        const fridgeList = Object.entries(snapshot.val()).map(([id, data]) => ({
+          id,
+          ...data,
+        }));
+        console.log("Updated fridge:", fridgeList); // Debugging
+        setFridge(fridgeList);
+
       } else {
         setFridge([]);
       }
@@ -62,7 +69,7 @@ const Fridge = () => {
   
           <div className="text-center mb-4 ">
             <button
-              onClick={() => navigate("/add-item")}
+              onClick={() => navigate("/add-fridge")}
               className="btn-primary mr-10"
             >
               Add New Fridge Item
@@ -80,10 +87,10 @@ const Fridge = () => {
               </thead>
               <tbody>
                 {fridge.length > 0 ? (
-                  fridge.map(([itemname, data]) => (
-                    <tr key={itemname} className="border">
-                      <td className="border px-4 py-2">{itemname}</td>
-                      <td className="border px-4 py-2">{data.num} {data.unit}</td>
+                  fridge.map((data) => (
+                    <tr key={data.id} className="border">
+                      <td className="border px-4 py-2">{data.itemName}</td>
+                      <td className="border px-4 py-2">{data.number} {data.unit}</td>
                       <td className="border px-4 py-2">{data.owner}</td>
                     </tr>
                   ))
