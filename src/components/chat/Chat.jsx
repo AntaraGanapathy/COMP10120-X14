@@ -12,6 +12,7 @@ const Chat = () => {
   const [activeChat, setActiveChat] = useState('group');
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [botLoading, setBotLoading] = useState(false);
   const { currentUser } = useAuth();
   const [currentKitchenName, setCurrentKitchenName] = useState('');
   const [roomId, setRoomId] = useState('');
@@ -100,25 +101,28 @@ const Chat = () => {
 
       if (activeChat === "ChatBot") {
         // console.log(messageData)
-        // console.log("Calling bot")        
-        const chatbotResponse = await Chatbot(messageData.text);
+        // console.log("Calling bot") 
+        
+        setBotLoading(true);
 
-        console.log("Chatbot Response", chatbotResponse)
+        try {
+          const chatbotResponse = await Chatbot(messageData.text);
 
-        const botData = {
+          console.log("Chatbot Response", chatbotResponse)
+
+          const botData = {
           text: chatbotResponse,
           sender: "ChatBot",
           timestamp: Date.now()
-        }
-
-        push(ref(database, `rooms/${roomId}/privateChats/${chatId}`), botData)
-
-        // setMessages((prevMessages) => [
-        //   ...prevMessages,
-        //   { id: Date.now().toString(), ...botData } 
-        // ]);
-        
-        console.log(chatbotResponse)
+          }
+          push(ref(database, `rooms/${roomId}/privateChats/${chatId}`), botData)
+                  
+          console.log(chatbotResponse)
+        } catch (error) {
+          console.error("Error", error)
+        } finally {
+          setBotLoading(false);
+        }        
       }
     }
    
@@ -208,6 +212,11 @@ const Chat = () => {
                 </div>
               </div>
             ))
+          )}
+          {botLoading && (
+            <div className='chatbot-typing'>
+              Typing...
+            </div>
           )}
           <div ref={messagesEndRef} />
         </div>
