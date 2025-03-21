@@ -46,21 +46,21 @@ const Fridge = () => {
                  <button type="button" onClick={() => { doSignOut().then(() => { navigate('/login') }) }} className="btn-primary hover:text-[#F7444E]">Logout</button>
              </div>
              <div className="items-center justify-between bg-[#002C3E] hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-              <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium rounded-lg bg-[#002C3E] md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 ">
-                <li>
-                    <Link aria-current="page" to={'/cost-splitter'} className="link text-bold">Cost Splitter</Link>
-                </li>
-                <li>
+               <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium rounded-lg bg-[#002C3E] md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 ">
+                 <li>
+                    <Link aria-current="page" to={'/cost-splitter'} className="link">Cost Splitter</Link>
+                 </li>
+                 <li>
                     <Link to={'/calendar-page'} className="link">Calendar</Link>
-                </li>
-                <li>
-                    <Link to={'/fridge'} className="link">Fridge Manager</Link>
-                </li>
-                <li>
-                    <Link to={'/chat'} className="link">Chat</Link>
-                </li>
-              </ul>
-            </div>
+                 </li>
+                 {/* <li>
+                    <Link to={'/cost-splitter'} className="link">Cost Splitter</Link>
+                 </li>
+                 <li>
+                    <Link to={'/cost-splitter'} className="link">Cost Splitter</Link>
+                 </li> */}
+               </ul>
+             </div>
            </div>
          </nav>
   

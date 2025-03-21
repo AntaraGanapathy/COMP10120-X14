@@ -5,6 +5,7 @@ import { ref, onValue, remove, get } from 'firebase/database';
 import { database } from '../../firebase/firebase';
 import { doSignOut } from '../../firebase/auth';
 import { logo } from "../../assets";
+import Schedule from '../Schedule'; // Add this import
 import '../styles/main.css';
 
 const Dashboard = () => {
@@ -151,6 +152,10 @@ const Dashboard = () => {
           <button onClick={() => navigate('/cost-splitter')} className="btn-primary">Cost Splitter</button>
           <button onClick={() => navigate('/fridge')} className="btn-primary">Fridge List</button>
           <button onClick={() => navigate('/chat', { state: session })} className="btn-primary">Chat</button>
+        </div>
+
+        <div className="flex flex-col bg-white rounded-lg shadow-md p-6 max-w-lg">
+          <Schedule roomId={roomId} />
         </div>
       </div>
     </div>

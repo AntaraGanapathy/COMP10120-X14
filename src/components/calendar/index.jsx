@@ -149,6 +149,33 @@ const MyCalendar = () => {
     );
   };
 
+  const handleDeleteEvent = async (eventToDelete, index) => {
+    if (!window.confirm(`Are you sure you want to delete "${eventToDelete.title}"?`)) {
+      return;
+    }
+  
+    try {
+      const sessionData = JSON.parse(localStorage.getItem("kitchenSession"));
+      if (!sessionData || !sessionData.roomId) {
+        throw new Error('No active kitchen session');
+      }
+  
+      // Remove event from local state
+      const updatedEvents = events.filter((_, i) => i !== index);
+      setEvents(updatedEvents);
+      
+      // Update Firebase
+      await update(ref(database, `rooms/${sessionData.roomId}`), {
+        calendarevents: updatedEvents
+      });
+      
+      console.log('Event deleted successfully');
+    } catch (error) {
+      console.error('Error deleting event:', error);
+      alert('Failed to delete event. Please try again.');
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen w-screen bg-stone-50">
@@ -189,9 +216,14 @@ const MyCalendar = () => {
                 
                 <div className="flex gap-3 flex-col pr-2">
                   {events.slice(0, 5).map((event, index) => {
-                    // Generate a consistent color for each event
-                    const colors = ["purple", "sky", "emerald", "indigo", "rose"];
-                    const color = colors[index % colors.length];
+                    const colors = {
+                      purple: "text-purple-600 hover:bg-purple-50",
+                      sky: "text-sky-600 hover:bg-sky-50",
+                      emerald: "text-emerald-600 hover:bg-emerald-50",
+                      indigo: "text-indigo-600 hover:bg-indigo-50",
+                      rose: "text-rose-600 hover:bg-rose-50"
+                    };
+                    const color = Object.keys(colors)[index % Object.keys(colors).length];
                     
                     return (
                       <div key={index} className="p-4 rounded-xl bg-white shadow-sm">
@@ -203,16 +235,12 @@ const MyCalendar = () => {
                             </p>
                           </div>
                           <button 
-                            className={`p-1 text-gray-400 hover:text-${color}-600 rounded-full transition-all duration-300`}
-                            onClick={() => {
-                              const confirm = window.confirm(`Delete event "${event.title}"?`);
-                              if (confirm) {
-                                setEvents(events.filter((_, i) => i !== index));
-                              }
-                            }}
+                            className={`p-2 rounded-full transition-all duration-300 ${colors[color]}`}
+                            onClick={() => handleDeleteEvent(event, index)}
+                            title="Delete event"
                           >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="4" viewBox="0 0 12 4" fill="none">
-                              <path d="M1.85624 2.00085H1.81458M6.0343 2.00085H5.99263M10.2124 2.00085H10.1707" stroke="currentcolor" strokeWidth="2.5" strokeLinecap="round"></path>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6"/>
                             </svg>
                           </button>
                         </div>

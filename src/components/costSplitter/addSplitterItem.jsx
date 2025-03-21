@@ -107,6 +107,7 @@ const AddSplitterItem = () => {
            <div className="items-center justify-between bg-[#002C3E] hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
              <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium rounded-lg bg-[#002C3E] md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 ">
                <li>
+<<<<<<< HEAD
                   <Link aria-current="page" to={'/cost-splitter'} className="link text-bold">Cost Splitter</Link>
                </li>
                <li>
@@ -118,6 +119,19 @@ const AddSplitterItem = () => {
                <li>
                   <Link to={'/chat'} className="link">Chat</Link>
                </li>
+=======
+                  <Link aria-current="page" to={'/cost-splitter'} className="link">Cancle</Link>
+               </li>
+               <li>
+                  <Link to={'/fridge'} className="link">Fridge List</Link>
+               </li>
+               <li>
+                  <Link to={'/calendar-page'} className="link">Calendar</Link>
+               </li>
+                <li>
+                  <Link to={'/chat'} className="link">Chat</Link>
+                </li>
+>>>>>>> 02442de9be464e5e54cec9fada3a8c4be28c1698
              </ul>
            </div>
          </div>

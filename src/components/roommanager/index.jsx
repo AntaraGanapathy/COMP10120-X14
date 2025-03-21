@@ -127,18 +127,18 @@ const RoomManager = () => {
               onChange={(e) => setJoinUserName(e.target.value)}
               className="w-5/6 p-2 border rounded-md text-black mb-6"
             />
-            <div className=" w-full flex flex-col items-center">
-              <button
-                onClick={handleJoinRoom}
-                className="btn-primary w-3/4 p-2 mt-4 mb-2"
-              >
-                Join Kitchen
-              </button>
+            <div className="flex flex-col items-center">
               <button
                 onClick={() => setShowJoinForm(false)}
-                className="btn-primary w-3/4 p-2 mt-4 mb-2"
+                className="btn-primary w-full p-2 mt-4 mb-2"
               >
                 Back
+              </button>
+              <button
+                onClick={handleJoinRoom}
+                className="btn-primary w-full p-2 mt-4 mb-2"
+              >
+                Join Kitchen
               </button>
             </div>
           </div>
