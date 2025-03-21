@@ -76,17 +76,14 @@ const CostSplitterMaster = () => {
            <div className="items-center justify-between bg-[#002C3E] hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
              <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium rounded-lg bg-[#002C3E] md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 ">
                <li>
-                  <Link aria-current="page" to={'/cost-splitter'} className="link">Cost Splitter</Link>
+                  <Link to={'/fridge'} className="link">Fridge List</Link>
                </li>
                <li>
                   <Link to={'/calendar-page'} className="link">Calendar</Link>
                </li>
-               {/* <li>
-                  <Link to={'/cost-splitter'} className="link">Cost Splitter</Link>
-               </li>
                <li>
-                  <Link to={'/cost-splitter'} className="link">Cost Splitter</Link>
-               </li> */}
+                  <Link to={'/chat'} className="link">Chat</Link>
+               </li>
              </ul>
            </div>
          </div>
