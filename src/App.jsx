@@ -9,6 +9,9 @@ import AddSplitterItem from './components/costSplitter/addSplitterItem';
 import CostSplitterMaster from './components/costSplitter/costSplitterMaster';
 import MyCalendar from './components/calendar';
 import Chat from './components/chat/Chat';
+import Chatbot from './components/chatbot/chatbot';
+import Fridge from './components/FridgeList/FridgeList';
+import AddFridge from './components/FridgeList/AddFridgeItem';
 
 function AppRoutes() {
   const { currentUser } = useAuth();
@@ -34,7 +37,10 @@ function AppRoutes() {
     { path: "/add-item", element: <AddSplitterItem /> },
     { path: "/cost-splitter", element: <CostSplitterMaster /> },
     { path: "/calendar-page", element: <MyCalendar /> },
-    { path: "/chat", element: <Chat /> }
+    { path: "/chat", element: <Chat /> },
+    { path: "/chatbot", element: <Chatbot />},
+    { path: "/fridge", element: <Fridge />},
+    { path: "/add-fridge", element: <AddFridge />}
   ];
   
   return useRoutes(routesArray);
