@@ -69,7 +69,7 @@ const AddFridge = () => {
       setOwner("");
       setUnit([]);
 
-      navigate("/fridge-list");
+      navigate("/fridge");
     } catch (error) {
       console.error("Error adding fridge item:", error);
     }
