@@ -32,13 +32,29 @@
 	border-radius: 5px;
 }
 
-.link {
+/* .link {
 	display: block;
 	padding: 8px 12px;
 	color: white;
 	border-radius: 4px;
 	text-decoration: none;
-}
+} */
+
+.link:link, .link:visited {
+	background-color: #002C3E;
+	color: white;
+	border: 2px solid #002C3E;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	border-radius: 15px;
+  }
+  
+  .link:hover, .link:active {
+	background-color: white;
+	color: black;
+  }
 
 /* Ensure Radio Buttons and Checkboxes are Small */
 input[type="radio"],
