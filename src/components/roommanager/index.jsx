@@ -106,43 +106,37 @@ const RoomManager = () => {
   };
 
   return (
-    <div className="min-w-screen flex items-center justify-center mt-4 mb-4">
-      <div className="w-full max-w-md bg-white rounded-xl shadow-xl p-8 space-y-8">
-        <div className="text-center space-y-2">
-          <p className="text-3xl font-bold text-gray-800">
-            Kitchen Manager
-          </p>
-          <p className="text-gray-600">
-            {showJoinForm ? 'Join an existing kitchen' : 'Create your kitchen space'}
-          </p>
-        </div>
+    <div className="bg-[#F7F8F3] min-h-screen min-w-screen flex items-center justify-center">
+      <div className="p-4 border rounded-lg shadow-md bg-white max-w-md min-w-sm mx-auto pt-15">
+        <p className="text-3xl text-black font-bold mb-6 mt-4 text-center"> Kitchen Manager </p>
+        <p className="block font-medium text-black mb-2 text-center mb-8">{showJoinForm ? 'Join an existing kitchen' : 'Create your kitchen space'}</p>
 
         {showJoinForm ? (
-          <div className="space-y-4">
+          <div className="space-y-4 flex flex-col items-center">
             <input
               type="text"
               placeholder="Kitchen ID"
               value={roomId}
               onChange={(e) => setRoomId(e.target.value)}
-              className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
+              className="w-5/6 p-2 border rounded-md text-black mb-6"
             />
             <input
               type="text"
               placeholder="Your Name"
               value={joinUserName}
               onChange={(e) => setJoinUserName(e.target.value)}
-              className="w-full px-4 py-3 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
+              className="w-5/6 p-2 border rounded-md text-black mb-6"
             />
-            <div className="flex space-x-3">
+            <div className="flex flex-col items-center">
               <button
                 onClick={() => setShowJoinForm(false)}
-                className="w-1/2 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-lg transition-colors"
+                className="btn-primary w-full p-2 mt-4 mb-2"
               >
                 Back
               </button>
               <button
                 onClick={handleJoinRoom}
-                className="w-1/2 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+                className="btn-primary w-full p-2 mt-4 mb-2"
               >
                 Join Kitchen
               </button>
@@ -150,34 +144,40 @@ const RoomManager = () => {
           </div>
         ) : (
           <>
-            <div className="space-y-4">
+            <div className="space-y-4 flex flex-col items-center">
               <input
                 type="text"
                 placeholder="Kitchen Name"
                 value={kitchenName}
                 onChange={(e) => setKitchenName(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 text-black rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
+                className="w-5/6 p-2 border rounded-md text-black mb-6"
               />
               <input
                 type="text"
                 placeholder="Your Name"
                 value={createUserName}
                 onChange={(e) => setCreateUserName(e.target.value)}
-                className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
+                className="w-5/6 p-2 border rounded-md text-black mb-4"
               />
+            </div>
+
+            <div className="flex flex-col items-center">
               <button
                 onClick={handleCreateRoom}
-                className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+                className="btn-primary w-3/4 p-2 mb-4 mt-4"
               >
                 Create Kitchen
               </button>
-            </div>
-            <div className="flex justify-center">
+
+              <div className='flex flex-row text-center w-full'>
+                  <div className='border-b-2 mb-2.5 mr-2 w-full'></div><div className='text-sm font-bold w-fit text-black'>OR</div><div className='border-b-2 mb-2.5 ml-2 w-full'></div>
+              </div>
+
               <button
                 onClick={() => setShowJoinForm(true)}
-                className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                className="btn-primary w-3/4 p-2 mt-4 mb-2"
               >
-                Or join an existing kitchen
+                Join an existing kitchen
               </button>
             </div>
           </>

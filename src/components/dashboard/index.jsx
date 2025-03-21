@@ -81,11 +81,11 @@ const Dashboard = () => {
 
   if (!roomId) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="bg-[#F7F8F3] min-h-screen min-w-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-3xl font-bold mb-6">Welcome to Kitchen Manager</h1>
-          <p className="text-xl mb-4">Hello {currentUser.displayName || currentUser.email}</p>
-          <button onClick={() => navigate('/manage-room')} className="btn-primary">
+          {/* <p className="text-xl mb-4 text-black">Hello {currentUser.displayName || currentUser.email}</p> */}
+          <h1 className="text-3xl font-bold mb-6 text-black">Welcome to Kitchen Manager</h1>
+          <button onClick={() => navigate('/manage-room')} className="btn-primary mt-4">
             Create or Join a Kitchen
           </button>
         </div>
