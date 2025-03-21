@@ -310,29 +310,37 @@ const MyCalendar = () => {
                 </div>
               </div>
               
-              <div className="border border-indigo-200 rounded-xl flex-grow bg-white overflow-hidden">
-                <Calendar
-                  localizer={localizer}
-                  events={events}
-                  startAccessor="start"
-                  endAccessor="end"
-                  onSelectSlot={handleSelectSlot}
-                  onSelectEvent={handleSelectEvent}
-                  selectable
-                  date={date}
-                  onNavigate={date => {
-                    setDate(date);
-                    setCurrentMonth(moment(date).format("MMMM YYYY"));
-                  }}
-                  view={view}
-                  onView={handleViewChange}
-                  style={{ height: '100%' }}
-                  components={{
-                    event: EventComponent,
-                    toolbar: () => null // Hide the default toolbar
-                  }}
-                  className="rounded-xl"
-                />
+              <div className="border border-indigo-200 rounded-xl flex-grow bg-white">
+                <div className="h-[calc(100vh-12rem)] overflow-hidden">
+                  <Calendar
+                    localizer={localizer}
+                    events={events}
+                    startAccessor="start"
+                    endAccessor="end"
+                    onSelectSlot={handleSelectSlot}
+                    onSelectEvent={handleSelectEvent}
+                    selectable
+                    date={date}
+                    onNavigate={date => {
+                      setDate(date);
+                      setCurrentMonth(moment(date).format("MMMM YYYY"));
+                    }}
+                    view={view}
+                    onView={handleViewChange}
+                    step={60} // Changed from 30 to 60 to show fewer time slots
+                    timeslots={1} // Changed from 2 to 1 to reduce density
+                    min={new Date(0, 0, 0, 0, 0, 0)}
+                    max={new Date(0, 0, 0, 23, 59, 59)}
+                    style={{ 
+                      height: '100%'
+                    }}
+                    components={{
+                      event: EventComponent,
+                      toolbar: () => null
+                    }}
+                    className="rounded-xl scale-95" // Added scale-95 to slightly reduce size
+                  />
+                </div>
               </div>
             </div>
           </div>

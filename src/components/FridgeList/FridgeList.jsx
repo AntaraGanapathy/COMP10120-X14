@@ -82,7 +82,7 @@ const Fridge = () => {
                 <tr>
                   <th className="border px-4 py-2">Item Name</th>
                   <th className="border px-4 py-2">Number</th>
-                  <th className="border px-4 py-2">People Owed</th>
+                  <th className="border px-4 py-2">Owner</th>
                 </tr>
               </thead>
               <tbody>
