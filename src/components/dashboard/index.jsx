@@ -105,27 +105,27 @@ const Dashboard = () => {
            <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                <button type="button" onClick={() => { doSignOut().then(() => { navigate('/login') }) }} className="btn-primary hover:text-[#F7444E]">Logout</button>
            </div>
-           {/* <div className="items-center justify-between bg-[#002C3E] hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+           <div className="items-center justify-between bg-[#002C3E] hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
              <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium rounded-lg bg-[#002C3E] md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 ">
                <li>
-                 <a href="#" className="link" aria-current="page">Home</a>
+                  <Link aria-current="page" to={'/cost-splitter'} className="link text-bold">Cost Splitter</Link>
                </li>
                <li>
-                 <a href="#" className="link">About</a>
+                  <Link to={'/calendar-page'} className="link">Calendar</Link>
                </li>
                <li>
-                 <a href="#" className="link">Services</a>
+                  <Link to={'/fridge'} className="link">Fridge Manager</Link>
                </li>
                <li>
-                 <a href="#" className="link">Contact</a>
+                  <Link to={'/chat'} className="link">Chat</Link>
                </li>
              </ul>
-           </div> */}
+           </div>
          </div>
        </nav>
 
 
-      <div className="pl-20 pt-10 mt-16 flex flex-col gap-6 min-h-screen min-w-screen">
+      <div className="pl-20 pt-15 mt-16 flex flex-col gap-6 min-h-screen min-w-screen">
         <div className="flex flex-col bg-white rounded-lg shadow-md p-6 max-w-lg">
           <h1 className="text-3xl font-bold text-black">{kitchenData?.name || kitchenName}</h1>
           <p className="text-[#002C3E] mt-2">Kitchen ID: {roomId}</p>
@@ -154,10 +154,12 @@ const Dashboard = () => {
           <button onClick={() => navigate('/chat', { state: session })} className="btn-primary">Chat</button>
         </div>
 
-        <div className="flex flex-col bg-white rounded-lg shadow-md p-6 max-w-lg">
-          <Schedule roomId={roomId} />
-        </div>
+        {/* <div className="flex flex-col bg-white rounded-lg shadow-md p-6 max-w-lg"> */}
+        <Schedule roomId={roomId} />
+        {/* </div> */}
       </div>
+
+      
     </div>
   );
 };
