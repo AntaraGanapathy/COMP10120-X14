@@ -9,7 +9,7 @@ const Chatbot = async (inputText) => {
   // const [loading, setLoading] = useState(false);
 
   const API_URL = "https://openrouter.ai/api/v1/chat/completions";
-  const API_KEY = "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"; 
+  const API_KEY = "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"; 
 
   console.log("Chatbot function called with input:", inputText); 
 

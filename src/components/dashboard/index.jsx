@@ -124,41 +124,42 @@ const Dashboard = () => {
          </div>
        </nav>
 
-
-      <div className="pl-20 pt-15 mt-16 flex flex-col gap-6 min-h-screen min-w-screen">
-        <div className="flex flex-col bg-white rounded-lg shadow-md p-6 max-w-lg">
-          <h1 className="text-3xl font-bold text-black">{kitchenData?.name || kitchenName}</h1>
-          <p className="text-[#002C3E] mt-2">Kitchen ID: {roomId}</p>
-          <p className="text-sm text-gray-500 mt-2 text-right">Logged in as {currentUser.displayName || currentUser.email}</p>
-          <p className="text-sm text-gray-500 text-right">Your role: {role}</p>
-          <div className="space-y-3 mt-6">
-            {members.map(([username, data]) => (
-              <div key={username} className="flex items-center text-black justify-between p-3 bg-gray-50 rounded-md">
-                <div>
-                  <span className="font-medium">{username}</span>
-                  {data.role === 'creator' && (
-                    <span className="ml-4 px-2 py-1 bg-[#78BCC4]/50 text-[#002C3E] text-xs rounded-full">Creator</span>
-                  )}
+      <div className="flex flex-row min-w-screen">
+        <div className="pl-20 pt-15 mt-16 flex flex-col gap-6 min-h-screen">
+          <div className="flex flex-col bg-white rounded-lg shadow-md p-6 max-w-lg">
+            <h1 className="text-3xl font-bold text-black">{kitchenData?.name || kitchenName}</h1>
+            <p className="text-[#002C3E] mt-2">Kitchen ID: {roomId}</p>
+            <p className="text-sm text-gray-500 mt-2 text-right">Logged in as {currentUser.displayName || currentUser.email}</p>
+            <p className="text-sm text-gray-500 text-right">Your role: {role}</p>
+            <div className="space-y-3 mt-6">
+              {members.map(([username, data]) => (
+                <div key={username} className="flex items-center text-black justify-between p-3 bg-gray-50 rounded-md">
+                  <div>
+                    <span className="font-medium">{username}</span>
+                    {data.role === 'creator' && (
+                      <span className="ml-4 px-2 py-1 bg-[#78BCC4]/50 text-[#002C3E] text-xs rounded-full">Creator</span>
+                    )}
+                  </div>
+                  <span className="text-sm text-gray-500">Joined: {new Date(data.timestamp).toLocaleDateString()}</span>
                 </div>
-                <span className="text-sm text-gray-500">Joined: {new Date(data.timestamp).toLocaleDateString()}</span>
-              </div>
-            ))}
+              ))}
+            </div>
+            <button onClick={handleLeaveKitchen} className="btn-danger">Leave Kitchen</button>
           </div>
-          <button onClick={handleLeaveKitchen} className="btn-danger">Leave Kitchen</button>
+
+          <div className="flex flex-wrap gap-4">
+            <button onClick={() => navigate('/calendar-page')} className="btn-primary">Calendar</button>
+            <button onClick={() => navigate('/cost-splitter')} className="btn-primary">Cost Splitter</button>
+            <button onClick={() => navigate('/fridge')} className="btn-primary">Fridge List</button>
+            <button onClick={() => navigate('/chat', { state: session })} className="btn-primary">Chat</button>
+          </div>
         </div>
 
-        <div className="flex flex-wrap gap-4">
-          <button onClick={() => navigate('/calendar-page')} className="btn-primary">Calendar</button>
-          <button onClick={() => navigate('/cost-splitter')} className="btn-primary">Cost Splitter</button>
-          <button onClick={() => navigate('/fridge')} className="btn-primary">Fridge List</button>
-          <button onClick={() => navigate('/chat', { state: session })} className="btn-primary">Chat</button>
-        </div>
-
-        {/* <div className="flex flex-col bg-white rounded-lg shadow-md p-6 max-w-lg"> */}
-        <Schedule roomId={roomId} />
+          <div className="pl-20 pt-15 mt-16  flex flex-col rounded-lg p-6 max-w-md min-w-lg">
+            <Schedule roomId={roomId} />
+          </div>
         {/* </div> */}
       </div>
-
       
     </div>
   );
